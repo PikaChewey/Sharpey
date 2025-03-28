@@ -1,0 +1,47 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "npm: dev",
+            "type": "npm",
+            "script": "dev",
+            "problemMatcher": [
+                {
+                    "owner": "nextjs",
+                    "fileLocation": ["relative", "${workspaceFolder}"],
+                    "pattern": {
+                        "regexp": "^(?:\\s+)?(?:ERROR|WARN)\\s+(.+?):(\\d+)(?::(\\d+))?\\s+(.+)$",
+                        "file": 1,
+                        "line": 2,
+                        "column": 3,
+                        "message": 4
+                    },
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": "^(Starting|Compiling|Compiled|Ready)",
+                        "endsPattern": "^(Compiled|Ready) in"
+                    }
+                }
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": false
+            },
+            "isBackground": true,
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "next dev",
+            "options": {
+                "statusbar": {
+                    "label": "$(rocket) Next.js"
+                }
+            },
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
+        }
+    ]
+} 

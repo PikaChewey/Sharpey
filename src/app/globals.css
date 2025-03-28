@@ -1,0 +1,910 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import better handwritten fonts for the notebook theme */
+@import url("https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Indie+Flower&family=Shadows+Into+Light&family=Gochi+Hand&display=swap");
+
+/* Global styles and custom CSS */
+:root {
+  --border-radius: 0.5rem;
+  --transition-duration: 0.3s;
+  --notebook-paper: #f9f9f7;
+  --notebook-dark-paper: #19191b;
+  --notebook-line: #c3e4ed;
+  --notebook-dark-line: #6c6c6c;
+  --notebook-blue: #1a56db;
+  --notebook-red: #dc2626;
+  --notebook-green: #16a34a;
+  --notebook-yellow: #eab308;
+  --notebook-gray: #4b5563;
+  --notebook-line-height: 24px;
+  --notebook-line-width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply font-sans;
+  background-color: var(--notebook-paper);
+  min-height: 100vh;
+}
+
+/* Lined paper background */
+.lined-paper-bg {
+  background-image: linear-gradient(
+    to bottom,
+    transparent calc(var(--notebook-line-height) - 1px),
+    var(--notebook-line) calc(var(--notebook-line-height) - 1px),
+    var(--notebook-line) var(--notebook-line-height),
+    transparent var(--notebook-line-height)
+  );
+  background-size: var(--notebook-line-width) var(--notebook-line-height);
+  background-position: 0 0;
+}
+
+/* Smooth transitions for dark mode */
+.dark {
+  color-scheme: dark;
+  background-color: var(--notebook-dark-paper);
+  color: #f8f9fa;
+}
+
+/* Lined paper background for dark mode */
+.dark.lined-paper-bg {
+  background-image: linear-gradient(
+    to bottom,
+    transparent calc(var(--notebook-line-height) - 1px),
+    var(--notebook-dark-line) calc(var(--notebook-line-height) - 1px),
+    var(--notebook-dark-line) var(--notebook-line-height),
+    transparent var(--notebook-line-height)
+  );
+  background-size: var(--notebook-line-width) var(--notebook-line-height);
+}
+
+/* Background line patterns - NEW UNIFIED APPROACH */
+.lined-background {
+  position: relative;
+}
+
+/* Light mode lines */
+.lined-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent calc(24px - 1px),
+    var(--notebook-line) calc(24px - 1px),
+    var(--notebook-line) 24px
+  );
+  background-size: 100% 24px;
+  z-index: 1;
+}
+
+/* Dark mode lines */
+.dark .lined-background::before {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent calc(24px - 1px),
+    var(--notebook-dark-line) calc(24px - 1px),
+    var(--notebook-dark-line) 24px
+  );
+  background-size: 100% 24px;
+}
+
+/* Legacy classes for backward compatibility - now they use the same system */
+.bg-lined-paper {
+  position: relative;
+}
+
+.bg-lined-paper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent calc(24px - 1px),
+    var(--notebook-line) calc(24px - 1px),
+    var(--notebook-line) 24px
+  );
+  background-size: 100% 24px;
+  z-index: 1;
+}
+
+.dark .bg-lined-paper::before {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent calc(24px - 1px),
+    var(--notebook-dark-line) calc(24px - 1px),
+    var(--notebook-dark-line) 24px
+  );
+  background-size: 100% 24px;
+}
+
+/* These classes are no longer needed but kept for compatibility */
+.bg-lined-paper-dark {
+  position: relative;
+}
+
+.bg-lined-paper-dark::before {
+  content: none;
+}
+
+.dark .bg-lined-paper-dark::before {
+  content: none; /* No additional effect needed, handled by bg-lined-paper */
+}
+
+/* Font styling */
+.font-handwritten {
+  font-family: var(--font-indie), var(--font-architects), var(--font-shadows),
+    var(--font-gochi), cursive;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-handwritten;
+  letter-spacing: 0.05em;
+}
+
+/* Handwritten text styles */
+.handwriting-heading {
+  @apply font-handwritten text-2xl sm:text-3xl md:text-4xl text-notebook-blue dark:text-blue-300;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.handwriting-subheading {
+  @apply font-handwritten text-xl sm:text-2xl text-notebook-gray dark:text-gray-200;
+}
+
+/* Main container for consistent padding */
+.container-custom {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 py-8 pt-16; /* Reduced padding-top for smaller navbar */
+}
+
+/* Sections with notebook paper background */
+.section {
+  @apply py-16 sm:py-24;
+  background-color: var(--notebook-paper);
+  border: 1px solid var(--notebook-line);
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Card component */
+.card {
+  background-color: var(--notebook-paper);
+  @apply dark:bg-gray-800 rounded-xl shadow-sm border;
+  border-color: var(--notebook-line);
+  transition: transform 0.3s ease, box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.card:hover {
+  @apply shadow-md;
+  transform: translateY(-2px);
+}
+
+/* Interactive cards */
+.interactive-card {
+  background-color: var(--notebook-paper);
+  @apply dark:bg-gray-800 rounded-xl shadow-sm border p-6 transition-all duration-300 ease-in-out;
+  border-color: var(--notebook-line);
+}
+
+.interactive-card:hover {
+  @apply shadow-md;
+  border-color: var(--notebook-blue);
+  transform: translateY(-3px);
+}
+
+/* Prevent background lines from showing through content */
+.no-lines {
+  position: relative;
+  z-index: 2;
+  background-color: var(--notebook-paper);
+}
+
+.dark .no-lines {
+  background-color: var(--notebook-dark-paper);
+}
+
+/* New improved version to ensure lines don't show in game section */
+.game-card {
+  position: relative;
+  z-index: 5; /* Higher z-index than lines */
+  background-color: var(--notebook-paper);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+.dark .game-card {
+  background-color: var(--notebook-dark-paper);
+}
+
+/* Override lined-background for game cards */
+.game-card.lined-background::before {
+  content: none; /* Remove the lines completely */
+}
+
+/* Game section wrapper to block background lines */
+.game-section-wrapper {
+  position: relative;
+  z-index: 10; /* Higher z-index than all other elements */
+  background-color: var(--notebook-paper);
+}
+
+.dark .game-section-wrapper {
+  background-color: var(--notebook-dark-paper);
+}
+
+/* Override background lines for entire game section */
+.game-section-wrapper.lined-background::before {
+  content: none; /* Remove the lines completely */
+}
+
+/* Styling for the Sharpe Ratio Analysis section with normal font */
+.sharpe-analysis-text {
+  font-family: var(--font-sans);
+  letter-spacing: normal;
+}
+
+.sharpe-analysis-value {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.sharpe-analysis-label {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Charts should also have clean backgrounds */
+.chart-container {
+  position: relative;
+  z-index: 5;
+  background-color: var(--notebook-paper);
+  border-radius: 0.5rem;
+}
+
+.dark .chart-container {
+  background-color: var(--notebook-dark-paper);
+}
+
+/* Button styling for notebook theme */
+.btn-notebook {
+  @apply bg-white border-2 border-notebook-line px-4 py-2 rounded-md font-handwritten;
+  transform: rotate(-0.5deg);
+  transition: all 0.2s ease;
+  box-shadow: 2px 2px 0px var(--notebook-line);
+}
+
+.btn-notebook:hover {
+  transform: rotate(0.5deg) translateY(-2px);
+  box-shadow: 3px 3px 0px var(--notebook-blue);
+  @apply border-notebook-blue;
+}
+
+.dark .btn-notebook {
+  @apply bg-gray-800 border-notebook-line dark:border-gray-600 text-gray-100;
+  box-shadow: 2px 2px 0px theme("colors.notebook.dark-line");
+}
+
+.dark .btn-notebook:hover {
+  box-shadow: 3px 3px 0px var(--notebook-blue);
+}
+
+/* Notebook primary button */
+.btn-notebook-primary {
+  @apply bg-notebook-blue border-2 border-blue-700 px-4 py-2 rounded-md font-handwritten;
+  transform: rotate(-0.5deg);
+  transition: all 0.2s ease;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+  color: white !important; /* Ensure text is white in both light and dark modes */
+}
+
+.btn-notebook-primary:hover {
+  transform: rotate(0.5deg) translateY(-2px);
+  box-shadow: 3px 3px 0px var(--notebook-blue);
+  @apply bg-blue-700;
+}
+
+.dark .btn-notebook-primary {
+  @apply bg-blue-700 border-blue-600 text-white;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+.dark .btn-notebook-primary:hover {
+  box-shadow: 3px 3px 0px var(--notebook-blue);
+}
+
+/* Notebook secondary button */
+.btn-notebook-secondary {
+  @apply bg-notebook-red text-white border-2 border-red-700 px-4 py-2 rounded-md font-handwritten;
+  transform: rotate(-0.5deg);
+  transition: all 0.2s ease;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.3);
+}
+
+.btn-notebook-secondary:hover {
+  transform: rotate(0.5deg) translateY(-2px);
+  box-shadow: 3px 3px 0px var(--notebook-red);
+  @apply bg-red-700;
+}
+
+.dark .btn-notebook-secondary {
+  @apply bg-red-700 border-red-600 text-white;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+.dark .btn-notebook-secondary:hover {
+  box-shadow: 3px 3px 0px var(--notebook-red);
+}
+
+/* Button styles */
+.btn-primary {
+  @apply bg-notebook-blue text-white font-handwritten py-2 px-4 rounded-lg shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-200;
+}
+
+.btn-outline {
+  @apply bg-transparent hover:bg-gray-100 text-gray-700 font-handwritten rounded-lg border border-gray-300 transition-all duration-200 focus:ring-4 focus:ring-gray-200 focus:outline-none dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700;
+}
+
+.btn-secondary {
+  @apply bg-notebook-red hover:bg-red-700 text-white font-handwritten rounded-lg transition-all duration-200 focus:ring-4 focus:ring-red-300 focus:outline-none dark:hover:bg-red-800 dark:focus:ring-red-800;
+}
+
+/* Form elements */
+input,
+select,
+textarea {
+  @apply block w-full rounded-md shadow-sm font-handwritten;
+  border-color: var(--notebook-line);
+  background-color: var(--notebook-paper);
+  color: var(--notebook-gray);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--notebook-blue);
+  box-shadow: 0 0 0 2px rgba(26, 86, 219, 0.2);
+}
+
+/* Improved dark mode input fields with better contrast */
+.dark input,
+.dark select,
+.dark textarea {
+  background-color: var(--notebook-dark-paper);
+  border-color: var(--notebook-dark-line);
+  color: #e2e8f0; /* Light gray for better contrast */
+}
+
+/* Notebook-themed checkbox */
+.notebook-checkbox {
+  @apply relative flex items-center;
+}
+
+.notebook-checkbox input[type="checkbox"] {
+  @apply w-5 h-5 border border-notebook-line bg-notebook-paper rounded appearance-none cursor-pointer;
+}
+
+.notebook-checkbox input[type="checkbox"]:checked {
+  @apply bg-notebook-blue border-notebook-blue;
+}
+
+.notebook-checkbox input[type="checkbox"]:checked::after {
+  content: "✓";
+  @apply absolute text-white font-bold text-xs flex items-center justify-center;
+  left: 0.3125rem;
+  top: 0.0625rem;
+}
+
+/* Notebook-themed radio */
+.notebook-radio {
+  @apply relative flex items-center;
+}
+
+.notebook-radio input[type="radio"] {
+  @apply w-5 h-5 border border-notebook-line bg-notebook-paper rounded-full appearance-none cursor-pointer;
+}
+
+.notebook-radio input[type="radio"]:checked {
+  @apply border-2 border-notebook-blue;
+}
+
+.notebook-radio input[type="radio"]:checked::after {
+  content: "";
+  @apply absolute rounded-full bg-notebook-blue;
+  width: 0.5rem;
+  height: 0.5rem;
+  left: 0.375rem;
+  top: 0.375rem;
+}
+
+/* Paper texture effect for elements instead of gradients */
+.paper-texture {
+  background-color: var(--notebook-paper);
+  background-image: linear-gradient(
+    to bottom,
+    transparent calc(var(--notebook-line-height) - 1px),
+    var(--notebook-line) calc(var(--notebook-line-height) - 1px),
+    var(--notebook-line) var(--notebook-line-height),
+    transparent var(--notebook-line-height)
+  );
+  background-size: var(--notebook-line-width) var(--notebook-line-height);
+  background-repeat: repeat;
+  @apply border border-notebook-line rounded-lg;
+}
+
+.dark .paper-texture {
+  @apply bg-notebook-dark-paper;
+  background-image: linear-gradient(
+    to bottom,
+    transparent calc(var(--notebook-line-height) - 1px),
+    #6c6c6c calc(var(--notebook-line-height) - 1px),
+    #6c6c6c var(--notebook-line-height),
+    transparent var(--notebook-line-height)
+  );
+  background-size: var(--notebook-line-width) var(--notebook-line-height);
+  @apply border-notebook-dark-line;
+}
+
+/* Modern slider styling */
+.modern-slider {
+  @apply h-2 bg-transparent rounded-full appearance-none dark:bg-transparent;
+  cursor: pointer;
+}
+
+.modern-slider::-webkit-slider-thumb {
+  @apply w-6 h-6 rounded-full transition-all duration-200;
+  background-color: var(--notebook-blue);
+  appearance: none;
+  cursor: grab;
+}
+
+.modern-slider::-moz-range-thumb {
+  @apply w-6 h-6 rounded-full transition-all duration-200 border-0;
+  background-color: var(--notebook-blue);
+  cursor: grab;
+}
+
+.modern-slider:active::-webkit-slider-thumb {
+  @apply w-7 h-7 shadow-lg scale-105;
+  cursor: grabbing;
+}
+
+.modern-slider:active::-moz-range-thumb {
+  @apply w-7 h-7 shadow-lg scale-105;
+  cursor: grabbing;
+}
+
+/* Notebook highlight marker effect */
+.highlight {
+  @apply relative inline;
+  position: relative;
+  z-index: 1;
+}
+
+.highlight::before {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: 55%;
+  width: calc(100% + 4px);
+  height: 45%;
+  background-color: rgba(255, 235, 59, 0.4);
+  z-index: -1;
+  transform: rotate(-1deg);
+}
+
+.highlight-red {
+  @apply relative inline;
+  position: relative;
+  z-index: 1;
+}
+
+.highlight-red::before {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: 55%;
+  width: calc(100% + 4px);
+  height: 45%;
+  background-color: rgba(220, 38, 38, 0.2);
+  z-index: -1;
+  transform: rotate(-1deg);
+}
+
+.highlight-blue {
+  @apply relative inline;
+  position: relative;
+  z-index: 1;
+}
+
+.highlight-blue::before {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: 55%;
+  width: calc(100% + 4px);
+  height: 45%;
+  background-color: rgba(26, 86, 219, 0.2);
+  z-index: -1;
+  transform: rotate(-1deg);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Notebook doodle animation */
+@keyframes drawLine {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-draw {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawLine 2s ease-in-out forwards;
+}
+
+/* Chart drawing animation */
+@keyframes drawChart {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.chart-line {
+  animation: drawLine 1.5s ease-in-out forwards;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+/* Moving marker animation */
+@keyframes moveMarker {
+  0% {
+    transform: translate(0, 50%) rotate(5deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(100% - 30px), 50%) rotate(-5deg);
+    opacity: 0;
+  }
+}
+
+.drawing-marker {
+  z-index: 10;
+  filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.2));
+  transform-origin: center;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--notebook-paper);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: var(--notebook-dark-paper);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--notebook-line);
+  border-radius: 6px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background-color: var(--notebook-dark-line);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--notebook-blue);
+}
+
+/* Tooltip-related CSS has been removed as requested */
+
+@media (min-width: 600px) {
+  :root {
+    --notebook-paper: #f9f7e8;
+    --notebook-dark-paper: #292524;
+    --notebook-line: #cdd5e0;
+    --notebook-dark-line: #4a525f;
+    --notebook-blue: #2563eb;
+    --notebook-gray: #4b5563;
+  }
+}
+
+@layer base {
+  :root {
+    --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-display: "Lexend", var(--font-sans);
+    --font-handwritten: "Kalam", "Caveat", "Shadows Into Light Two", cursive;
+
+    @apply antialiased;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply text-notebook-gray dark:text-gray-100;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-handwritten dark:text-gray-100;
+  }
+
+  /* All links should look like they're handwritten with ink */
+  a:not(.btn) {
+    @apply text-notebook-blue dark:text-blue-300 transition-colors duration-200 relative;
+    text-decoration: none;
+  }
+
+  a:not(.btn)::after {
+    content: "";
+    @apply absolute bottom-0 left-0 w-full;
+    height: 1px;
+    background-color: var(--notebook-blue);
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+  }
+
+  a:not(.btn):hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md font-handwritten focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors;
+  }
+
+  .input-field {
+    @apply block w-full rounded-md shadow-sm font-handwritten bg-notebook-paper dark:bg-gray-800 dark:text-gray-100;
+    border-color: var(--notebook-line);
+  }
+
+  .card {
+    background-color: var(--notebook-paper);
+    @apply dark:bg-gray-800 rounded-lg shadow-md overflow-hidden;
+    border: 1px solid var(--notebook-line);
+  }
+
+  .section {
+    @apply py-12 sm:py-16 lg:py-20;
+  }
+
+  /* Notebook table styling */
+  .notebook-table {
+    @apply w-full border-collapse font-handwritten;
+  }
+
+  .notebook-table th {
+    @apply text-left py-2 px-4 border-b-2 border-notebook-line text-notebook-blue;
+  }
+
+  .notebook-table td {
+    @apply py-2 px-4 border-b border-notebook-line;
+  }
+
+  .notebook-table tr:hover {
+    @apply bg-notebook-line bg-opacity-10;
+  }
+}
+
+/* Input contrast fixes for dark mode */
+.dark input,
+.dark textarea,
+.dark select {
+  color: white;
+  background-color: #1a1a1a;
+  border-color: #444;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #aaa;
+}
+
+/* Ensure input text is visible */
+.dark input[type="text"],
+.dark input[type="number"],
+.dark input[type="email"],
+.dark input[type="password"] {
+  color: white;
+  background-color: rgba(40, 40, 40, 0.8);
+}
+
+/* Custom input styling for the notebook theme */
+input,
+textarea,
+select {
+  @apply border-2 border-notebook-line bg-white/90 rounded px-3 py-2 font-handwritten;
+  transition: all 0.2s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  @apply outline-none border-notebook-blue ring-1 ring-notebook-blue/30;
+}
+
+/* Chart point styles for hand-drawn look */
+.chart-point {
+  fill: #fff;
+  stroke-width: 2;
+  transition: all 0.3s ease;
+}
+
+.chart-point:hover {
+  transform: scale(1.5);
+}
+
+/* Add a slight rotation to elements for more dynamic notebook feel */
+.notebook-rotate-left {
+  transform: rotate(-1deg);
+}
+
+.notebook-rotate-right {
+  transform: rotate(1deg);
+}
+
+/* Navbar spacing adjustment to prevent overlap */
+nav + main {
+  padding-top: 5rem; /* Add top padding to main content when following navbar */
+}
+
+@layer utilities {
+  .bg-notebook-dark-paper {
+    background-color: theme("colors.notebook.dark-paper");
+  }
+  .bg-notebook-dark-line {
+    background-color: theme("colors.notebook.dark-line");
+  }
+  .border-notebook-dark-line {
+    border-color: theme("colors.notebook.dark-line");
+  }
+
+  /* Other existing utility classes */
+}
+
+/* Dark mode text adjustments for better visibility */
+.dark .text-notebook-gray {
+  @apply text-gray-100;
+}
+
+.dark input {
+  @apply bg-gray-800 text-gray-100 border-gray-700;
+}
+
+.dark input::placeholder {
+  @apply text-gray-400;
+}
+
+.dark label,
+.dark .form-label {
+  @apply text-gray-100;
+}
+
+.dark .performance-title,
+.dark .weight-title,
+.dark .analysis-title {
+  @apply text-gray-100;
+}
+
+.dark .stock-label,
+.dark .stock-ticker {
+  @apply text-gray-100;
+}
+
+.dark .slider-label {
+  @apply text-gray-100;
+}
+
+/* Tooltip improvements to ensure they always appear on top */
+.z-50 {
+  z-index: 50 !important;
+}
+
+/* Make sure tooltips in Sharpe Ratio Analysis section appear on top */
+.info-tooltip {
+  position: relative;
+  z-index: 60; /* Even higher than other z-indexes */
+}
+
+/* Tooltip positioning fixes - prevent layout shifts */
+.tooltip-container {
+  position: static;
+  display: inline-block;
+}
+
+.tooltip-popup {
+  position: absolute;
+  z-index: 9999 !important; /* Ensure tooltips appear on top of everything */
+  pointer-events: auto;
+  max-width: 400px;
+  min-width: 250px;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.tooltip-content {
+  background-color: var(--notebook-paper);
+  border: 2px solid var(--notebook-blue);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  transform: rotate(-0.5deg);
+  position: relative;
+  z-index: 9999;
+}
+
+.dark .tooltip-content {
+  background-color: var(--notebook-dark-paper);
+  border-color: #4b6bfb;
+}

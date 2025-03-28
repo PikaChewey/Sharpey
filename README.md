@@ -1,3 +1,5 @@
+HEAD
+
 # Sharpes - Interactive Sharpe Ratio Game
 
 A modern web application that helps users understand and optimize their investment portfolios using the Sharpe Ratio. Sharpes is an educational tool that gamifies the concept of risk-adjusted returns through an interactive interface.
@@ -8,14 +10,33 @@ A modern web application that helps users understand and optimize their investme
 
 - **Portfolio Builder:** Create a two-stock portfolio and adjust weights using an intuitive slider
 - **Sharpe Ratio Calculator:** Instantly calculate the Sharpe Ratio of your portfolio and individual stocks
-- **Performance Visualization:** View 5-year performance charts of stocks and your portfolio
+- # **Performance Visualization:** View 5-year performance charts of stocks and your portfolio
+
+# Sharpey - Interactive Sharpe Ratio Game
+
+A modern web application that helps users understand and optimize their investment portfolios using the Sharpe Ratio. Sharpey is an educational tool that gamifies the concept of risk-adjusted returns through an interactive notebook-themed interface.
+
+![Sharpey Game Screenshot](https://via.placeholder.com/800x400?text=Sharpey+Game+Screenshot)
+
+## Features
+
+- **Interactive Portfolio Builder:** Create a two-stock portfolio and adjust weights using an intuitive slider
+- **Sharpe Ratio Calculator:** Instantly calculate the Sharpe Ratio of your portfolio and individual stocks
+- **Performance Visualization:** View 1-year performance charts of stocks and your portfolio with hand-drawn styling
+  35f7b07b (Initial commit)
 - **Market Comparison:** Compare your portfolio's Sharpe Ratio against major indices (S&P 500, NASDAQ, Dow Jones)
 - **Leaderboard:** See the best-performing portfolios created by other users
 - **Educational Content:** Learn about Sharpe Ratio and portfolio theory with an interactive tutorial
 - **Responsive Design:** Fully optimized for both desktop and mobile devices
+  HEAD
 - **Dark Mode Support:** Toggle between light and dark themes based on preference
 - **Interactive Tooltips:** Hover over metrics and concepts to get educational explanations
+- # **Advanced Metrics:** View additional performance indicators like Sortino Ratio and Beta
+- **Dark Mode Support:** Toggle between notebook and blackboard themes based on preference
+- **Interactive Tooltips:** Hover over metrics and concepts to get educational explanations on sticky notes
 - **Advanced Metrics:** View additional performance indicators like Sortino Ratio and Beta
+- **Notebook Theme:** Enjoy a unique handwritten notebook aesthetic throughout the entire application
+  > > > > > > > 35f7b07b (Initial commit)
 
 ## Tech Stack
 
@@ -34,20 +55,37 @@ A modern web application that helps users understand and optimize their investme
 ### Installation
 
 1. Clone the repository
+   <<<<<<< HEAD
+
    ```
    git clone https://github.com/yourusername/sharpes.git
    cd sharpes
    ```
 
-2. Install dependencies
+2. # Install dependencies
+
    ```
-   npm install
+   git clone https://github.com/yourusername/sharpey.git
+   cd sharpey
    ```
 
+3. Install dependencies
+
+35f7b07b (Initial commit)
+
+```
+npm install
+```
+
 3. Start the development server
-   ```
-   npm run dev
-   ```
+   HEAD
+   =======
+
+35f7b07b (Initial commit)
+
+```
+npm run dev
+```
 
 4. Open your browser and navigate to `http://localhost:3000`
 
@@ -89,13 +127,18 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Educational Content
 
+HEAD
 Sharpes includes comprehensive educational content to help users understand financial concepts:
+=======
+Sharpey includes comprehensive educational content to help users understand financial concepts:
+35f7b07b (Initial commit)
 
 1. **Interactive Tutorial:** A multi-step guide explaining the Sharpe Ratio, portfolio diversification, and how to use the application
 2. **InfoTooltips:** Contextual explanations appear when hovering over various metrics and concepts
 3. **Visual Indicators:** Color-coded ratings help users quickly understand if their portfolio is performing well
 4. **Comparative Analysis:** See how your portfolio stacks up against market benchmarks
 
+HEAD
 The application is designed to be educational while remaining engaging and interactive, making complex financial concepts accessible to beginners.
 
 ## UI Features
@@ -103,7 +146,19 @@ The application is designed to be educational while remaining engaging and inter
 - **Responsive Design:** Works seamlessly on desktop, tablet, and mobile devices
 - **Dark Mode Support:** Choose between light and dark themes based on preference or system settings
 - **Animated Transitions:** Smooth animations enhance the user experience
-- **Interactive Elements:** Sliders, toggles, and buttons provide an intuitive interface
+- # **Interactive Elements:** Sliders, toggles, and buttons provide an intuitive interface
+  The application is designed to be educational while remaining engaging and interactive, making complex financial concepts accessible to beginners through a familiar notebook interface.
+
+## UI Features
+
+- **Notebook Design:** The entire application mimics a hand-drawn notebook or journal
+- **Handwritten Typography:** Fonts that resemble natural handwriting enhance the notebook feel
+- **Hand-Drawn Elements:** Charts, buttons, and UI elements appear as if sketched by hand
+- **Interactive Paper Effects:** Page turns, sticky notes, and paper textures throughout the interface
+- **Dark Mode:** A blackboard-themed dark mode with chalk-like text
+- **Responsive Design:** Works seamlessly on desktop, tablet, and mobile devices
+- **Animated Transitions:** Smooth page-turn animations enhance the user experience
+  35f7b07b (Initial commit)
 
 ## Acknowledgments
 
@@ -112,4 +167,5 @@ The application is designed to be educational while remaining engaging and inter
 - [Tailwind CSS](https://tailwindcss.com/) for the utility-first CSS framework
 - [Next.js](https://nextjs.org/) for the React framework
 - [Framer Motion](https://www.framer.com/motion/) for the animation library
-- [React Icons](https://react-icons.github.io/react-icons/) for the icon library 
+- # [React Icons](https://react-icons.github.io/react-icons/) for the icon library
+- [React Icons](https://react-icons.github.io/react-icons/) for the icon library
