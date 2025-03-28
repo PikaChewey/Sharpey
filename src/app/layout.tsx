@@ -16,6 +16,7 @@ import Navbar from '@/components/Navbar';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import ClientComponentWrapper from '@/components/ClientComponentWrapper';
 import DoodleBackground from '@/components/DoodleBackground';
+import { Analytics } from '@vercel/analytics/react';
 
 // Font configurations
 const inter = Inter({ 
@@ -83,6 +84,7 @@ export default function RootLayout({
             </main>
           </div>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
