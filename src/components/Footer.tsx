@@ -27,11 +27,11 @@ export default function Footer() {
             </div>
           </div>
           
-          {/* Resources */}
-          <div>
+          {/* Resources - aligned to the right */}
+          <div className="text-right">
             <h3 className="text-lg font-handwritten font-bold mb-4 text-notebook-gray dark:text-gray-100">Resources</h3>
             <ul className="space-y-2 font-handwritten">
-              <li className="flex items-center">
+              <li className="flex items-center justify-end">
                 <a 
                   href="https://www.youtube.com/watch?v=9HD6xo2iO1g&ab_channel=WallStreetQuants" 
                   target="_blank" 
@@ -41,7 +41,7 @@ export default function Footer() {
                   What is Sharpe Ratio?
                 </a>
               </li>
-              <li className="flex items-center">
+              <li className="flex items-center justify-end">
                 <a 
                   href="https://www.investopedia.com/articles/basics/11/3-s-simple-investing.asp" 
                   className="text-notebook-gray dark:text-gray-100 hover:text-notebook-blue dark:hover:text-blue-300 transition-colors"
@@ -49,7 +49,7 @@ export default function Footer() {
                   Investment Strategies
                 </a>
               </li>
-              <li className="flex items-center">
+              <li className="flex items-center justify-end">
                 <a 
                   href="https://www.investopedia.com/terms/m/modernportfoliotheory.asp" 
                   className="text-notebook-gray dark:text-gray-100 hover:text-notebook-blue dark:hover:text-blue-300 transition-colors"
@@ -57,7 +57,7 @@ export default function Footer() {
                   Modern Portfolio Theory
                 </a>
               </li>
-              <li className="flex items-center">
+              <li className="flex items-center justify-end">
                 <a 
                   href=" https://www.investopedia.com/terms/r/riskmanagement.asp" 
                   className="text-notebook-gray dark:text-gray-100 hover:text-notebook-blue dark:hover:text-blue-300 transition-colors"

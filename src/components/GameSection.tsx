@@ -148,12 +148,17 @@ export default function GameSection() {
   const [stockData1, setStockData1] = useState<any>(null);
   const [stockData2, setStockData2] = useState<any>(null);
   
+  // Confirmed state variables - only update when Calculate is pressed
+  const [confirmedStock1, setConfirmedStock1] = useState<string>('');
+  const [confirmedStock2, setConfirmedStock2] = useState<string>('');
+  
   // Error state for each stock input
   const [stock1Error, setStock1Error] = useState<string>('');
   const [stock2Error, setStock2Error] = useState<string>('');
   
   // Portfolio weight state
   const [weight, setWeight] = useState<number>(50);
+  const [confirmedWeight, setConfirmedWeight] = useState<number>(50);
   
   // Results state
   const [portfolioReturns, setPortfolioReturns] = useState<number | null>(null);
@@ -177,6 +182,8 @@ export default function GameSection() {
     setStock2('');
     setStockData1(null);
     setStockData2(null);
+    setConfirmedStock1('');
+    setConfirmedStock2('');
     setPortfolioReturns(null);
     setPortfolioVolatility(null);
     setPortfolioSharpeRatio(null);
@@ -211,6 +218,11 @@ export default function GameSection() {
     
     setIsLoading(true);
     setError('');
+    
+    // Update confirmed state with current input values when Calculate is pressed
+    setConfirmedStock1(stock1);
+    setConfirmedStock2(stock2);
+    setConfirmedWeight(weight);
     
     try {
       // Fetch real data from API
@@ -420,7 +432,7 @@ export default function GameSection() {
   
   // Function to save portfolio to local storage
   const handleSavePortfolio = () => {
-    if (!portfolioSharpeRatio || !stock1 || !stock2) return;
+    if (!portfolioSharpeRatio || !confirmedStock1 || !confirmedStock2) return;
     
     if (username === 'Anonymous') {
       // Prompt for username if not set
@@ -433,14 +445,14 @@ export default function GameSection() {
   
   // Function to actually save the portfolio
   const savePortfolioToStorage = () => {
-    if (!portfolioSharpeRatio || !stock1 || !stock2) return;
+    if (!portfolioSharpeRatio || !confirmedStock1 || !confirmedStock2) return;
     
     const portfolio: Portfolio = {
       id: uuidv4(),
       username,
-      stock1,
-      stock2,
-      weight,
+      stock1: confirmedStock1,
+      stock2: confirmedStock2,
+      weight: confirmedWeight,
       sharpeRatio: portfolioSharpeRatio,
       date: new Date().toISOString(),
     };
@@ -469,7 +481,7 @@ export default function GameSection() {
     
     // Create share text
     const shareText = `Check out my portfolio in Sharpes! 
-${stock1} (${weight}%) and ${stock2} (${100-weight}%) 
+${confirmedStock1} (${confirmedWeight}%) and ${confirmedStock2} (${100-confirmedWeight}%) 
 with a Sharpe Ratio of ${portfolioSharpeRatio.toFixed(2)}!`;
     
     // In a real app, this would use the Web Share API
@@ -582,8 +594,8 @@ with a Sharpe Ratio of ${portfolioSharpeRatio.toFixed(2)}!`;
               <PortfolioSlider
                 value={weight}
                 onChange={setWeight}
-                stock1={stock1 || "Stock 1"}
-                stock2={stock2 || "Stock 2"}
+                stock1={confirmedStock1 || "Stock 1"}
+                stock2={confirmedStock2 || "Stock 2"}
               />
             </motion.div>
 
@@ -658,8 +670,9 @@ with a Sharpe Ratio of ${portfolioSharpeRatio.toFixed(2)}!`;
               <PerformanceChart 
                 stockData1={stockData1} 
                 stockData2={stockData2} 
-                portfolioWeights={[weight, 100-weight]}
+                portfolioWeights={[confirmedWeight, 100-confirmedWeight]}
                 showComparison={showComparison}
+                isLoading={isLoading}
               />
             </motion.div>
 
@@ -702,7 +715,7 @@ with a Sharpe Ratio of ${portfolioSharpeRatio.toFixed(2)}!`;
               {/* Sharpe Ratio Cards */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <SharpeRatioCard
-                  title={stock1 || "Stock 1"}
+                  title={confirmedStock1 || "Stock 1"}
                   sharpeRatio={stockData1?.sharpeRatio || null}
                   isLoading={isLoading}
                   returns={stockData1?.returns}
@@ -712,7 +725,7 @@ with a Sharpe Ratio of ${portfolioSharpeRatio.toFixed(2)}!`;
                 />
                 
                 <SharpeRatioCard
-                  title={stock2 || "Stock 2"}
+                  title={confirmedStock2 || "Stock 2"}
                   sharpeRatio={stockData2?.sharpeRatio || null}
                   isLoading={isLoading}
                   returns={stockData2?.returns}
@@ -728,7 +741,7 @@ with a Sharpe Ratio of ${portfolioSharpeRatio.toFixed(2)}!`;
                   isHighlighted={true}
                   returns={portfolioReturns !== null ? portfolioReturns : undefined}
                   volatility={portfolioVolatility !== null ? portfolioVolatility : undefined}
-                  weightDetails={`${stock1} (${weight}%) + ${stock2} (${100-weight}%)`}
+                  weightDetails={`${confirmedStock1} (${confirmedWeight}%) + ${confirmedStock2} (${100-confirmedWeight}%)`}
                   sortinoRatio={sortinoRatio}
                   showAdvanced={showAdvancedMetrics}
                 />

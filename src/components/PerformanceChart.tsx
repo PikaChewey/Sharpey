@@ -81,6 +81,19 @@ interface PerformanceChartProps {
   isLoading?: boolean;
 }
 
+// Define interface for chart dataset to include borderDash property
+interface ChartDataset {
+  label: string;
+  data: number[];
+  borderColor: string;
+  backgroundColor: string;
+  borderWidth: number;
+  pointRadius: number;
+  pointHoverRadius: number;
+  tension: number;
+  borderDash?: number[];
+}
+
 const PerformanceChart: React.FC<PerformanceChartProps> = ({
   stockData1,
   stockData2,
@@ -108,53 +121,116 @@ const PerformanceChart: React.FC<PerformanceChartProps> = ({
     // Format dates for display
     const formattedDates = dates.map(date => formatDate(date));
     
-    // Create new chart
+    // Define the datasets array that we'll populate
+    const datasets = [
+      {
+        label: stockData1.symbol,
+        data: stock1Values,
+        borderColor: 'rgb(59, 130, 246)',
+        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+        borderWidth: 2,
+        pointRadius: 1,
+        pointHoverRadius: 5,
+        tension: 0.2,
+      },
+      {
+        label: stockData2.symbol,
+        data: stock2Values,
+        borderColor: 'rgb(139, 92, 246)',
+        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+        borderWidth: 2,
+        pointRadius: 1,
+        pointHoverRadius: 5,
+        tension: 0.2,
+      },
+      {
+        label: 'Portfolio',
+        data: portfolioValues,
+        borderColor: 'rgb(16, 185, 129)',
+        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+        borderWidth: 3,
+        pointRadius: 0,
+        pointHoverRadius: 5,
+        tension: 0.2,
+      }
+    ];
+    
+    // Cast datasets as ChartDataset[] to solve the type issue
+    const typedDatasets = datasets as ChartDataset[];
+    
+    // Add market indices if comparison is enabled and data available
+    if (showComparison && marketComparisonData.current.length > 0) {
+      // Define colors and labels for market indices
+      const marketIndices = [
+        { symbol: 'SPY', label: 'S&P 500', color: 'rgb(156, 163, 175)' },
+        { symbol: 'QQQ', label: 'NASDAQ', color: 'rgb(251, 191, 36)' },
+        { symbol: 'DIA', label: 'DOW JONES', color: 'rgb(239, 68, 68)' }
+      ];
+      
+      // Add each market index to the datasets
+      marketComparisonData.current.forEach((data, index) => {
+        if (!data || !data.priceHistory || data.error) return;
+        
+        // Get the corresponding market index config
+        const marketIndex = marketIndices[index];
+        if (!marketIndex) return;
+        
+        // Process the price history data
+        let priceHistory = [...data.priceHistory];
+        if (normalizeData) {
+          priceHistory = normalizeToBaseValue(priceHistory);
+        }
+        
+        // Add the dataset
+        typedDatasets.push({
+          label: marketIndex.label,
+          data: priceHistory,
+          borderColor: marketIndex.color,
+          backgroundColor: `${marketIndex.color}20`,
+          borderWidth: 2,
+          borderDash: [5, 5], // Add dashed line for market indices
+          pointRadius: 0,
+          pointHoverRadius: 5,
+          tension: 0.2,
+        });
+      });
+    }
+    
+    // Create new chart with all the datasets
     const newChart = new Chart(chartRef.current, {
       type: 'line',
       data: {
         labels: formattedDates,
-        datasets: [
-          {
-            label: stockData1.symbol,
-            data: stock1Values,
-            borderColor: 'rgb(59, 130, 246)',
-            backgroundColor: 'rgba(59, 130, 246, 0.1)',
-            borderWidth: 2,
-            pointRadius: 1,
-            pointHoverRadius: 5,
-            tension: 0.2,
-          },
-          {
-            label: stockData2.symbol,
-            data: stock2Values,
-            borderColor: 'rgb(139, 92, 246)',
-            backgroundColor: 'rgba(139, 92, 246, 0.1)',
-            borderWidth: 2,
-            pointRadius: 1,
-            pointHoverRadius: 5,
-            tension: 0.2,
-          },
-          {
-            label: 'Portfolio',
-            data: portfolioValues,
-            borderColor: 'rgb(16, 185, 129)',
-            backgroundColor: 'rgba(16, 185, 129, 0.1)',
-            borderWidth: 3,
-            pointRadius: 0,
-            pointHoverRadius: 5,
-            tension: 0.2,
-          }
-        ]
+        datasets: typedDatasets
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        interaction: {
+          mode: 'index', // Show all dataset values at the current index
+          intersect: false // Show tooltip when hovering over any part of the chart, not just data points
+        },
         plugins: {
           tooltip: {
             callbacks: {
               title: function(tooltipItems) {
                 const index = tooltipItems[0].dataIndex;
                 return formatTooltipDate(dates[index]);
+              },
+              label: function(context) {
+                let label = context.dataset.label || '';
+                if (label) {
+                  label += ': ';
+                }
+                if (context.parsed.y !== null) {
+                  // Show dollar signs for actual values, percentage for normalized
+                  if (normalizeData) {
+                    label += context.parsed.y.toFixed(2);
+                  } else {
+                    label += '$' + context.parsed.y.toFixed(2);
+                  }
+                }
+                return label;
               }
             }
           },
@@ -234,7 +310,8 @@ const PerformanceChart: React.FC<PerformanceChartProps> = ({
     stockData1,
     stockData2,
     portfolioWeights,
-    normalizeData
+    normalizeData,
+    showComparison // Add showComparison as a dependency to update when it changes
   ]);
 
   // Create or update chart when data changes
@@ -263,29 +340,32 @@ const PerformanceChart: React.FC<PerformanceChartProps> = ({
       setDataSource('real');
     }
     
-    // Reset comparison data when component mounts
-    marketComparisonData.current = [];
-    
+    // Handle market comparison data
     if (showComparison) {
       // Fetch market comparison data for S&P 500, NASDAQ, and Dow Jones
       const fetchMarketData = async () => {
         try {
+          logDebug('Fetching market comparison data...');
           const [spyData, qqqData, diaData] = await Promise.all([
             fetchRealStockData('SPY'),  // S&P 500 ETF
             fetchRealStockData('QQQ'),  // NASDAQ ETF
             fetchRealStockData('DIA'),  // Dow Jones ETF
           ]);
           
+          logDebug('Market data fetched successfully', { spyData, qqqData, diaData });
           marketComparisonData.current = [spyData, qqqData, diaData];
           updateChart();
         } catch (error) {
           console.error('Failed to fetch market comparison data:', error);
-          updateChart(); // Continue with chart update even if market data fails
+          // Continue with chart update even if market data fails
+          updateChart(); 
         }
       };
       
       fetchMarketData();
     } else {
+      // If comparison is disabled, clear market data and update chart
+      marketComparisonData.current = [];
       updateChart();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -328,19 +408,19 @@ const PerformanceChart: React.FC<PerformanceChartProps> = ({
     <div className="overflow-hidden">
       <div className="chart-container" style={{ height: '300px', position: 'relative' }}>
         <canvas ref={chartRef}></canvas>
-      </div>
+        </div>
       
       {/* Display mode toggle */}
       <div className="flex items-center justify-center my-2">
-        <button
-          onClick={() => setNormalizeData(!normalizeData)}
+          <button 
+            onClick={() => setNormalizeData(!normalizeData)}
           className="px-2 py-1 text-xs font-handwritten bg-notebook-paper dark:bg-notebook-dark-paper border border-notebook-line dark:border-notebook-dark-line rounded-md flex items-center shadow-sm hover:shadow transition-all"
           style={{ filter: 'url(#pencil-filter)' }}
-        >
+          >
           <span className="mr-1">
             {normalizeData ? 'Show Actual Values' : 'Show Normalized Values'}
           </span>
-        </button>
+          </button>
       </div>
       
       {/* Legend */}
@@ -370,13 +450,23 @@ const PerformanceChart: React.FC<PerformanceChartProps> = ({
               <span className="font-handwritten">Portfolio</span>
             </div>
             {showComparison && (
-              <div className="flex items-center gap-2">
-                <span className="w-3 h-3 bg-gray-400 rounded-full"></span>
-                <span className="font-handwritten">S&P 500</span>
-              </div>
-            )}
-          </div>
+              <>
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 bg-gray-400 rounded-full"></span>
+                  <span className="font-handwritten">S&P 500</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 bg-yellow-500 rounded-full"></span>
+                  <span className="font-handwritten">NASDAQ</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 bg-red-500 rounded-full"></span>
+                  <span className="font-handwritten">DOW JONES</span>
+                </div>
+              </>
+          )}
         </div>
+      </div>
       </div>
       
       <div className="text-xs text-center text-gray-500 dark:text-gray-400 mt-2 font-handwritten">
