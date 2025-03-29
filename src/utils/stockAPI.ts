@@ -31,8 +31,23 @@ const COMMON_STOCKS = [
 
 // Add a new array of common tickers with periods
 const COMMON_TICKERS_WITH_PERIODS = [
-  'BRK.A', 'BRK.B', 'BF.A', 'BF.B', 'HEI.A',
-  'NKE.B', 'GOOG.L', 'GOOGL.L', 'AAPL.L', 'MSFT.L'
+  // Berkshire Hathaway classes
+  'BRK.A', 'BRK.B', 
+  // Brown-Forman classes
+  'BF.A', 'BF.B', 
+  // Heico classes
+  'HEI.A', 'HEI.B',
+  // Under Armour classes
+  'UA.C', 'UAA.C',
+  // Alphabet classes
+  'GOOG.L', 'GOOGL.L',
+  // Other major stocks on international exchanges
+  'AAPL.L', 'MSFT.L', 'AMZN.L', 'FB.L', 'TSLA.L',
+  // Common class A and B shares pattern
+  'CMCSA.K', 'LILA.K', 'LILAK', 'QRTEA', 'QRTEB', 'VOD.L',
+  'DISCA', 'DISCB', 'DISCK',
+  'FOX', 'FOXA', 'NWS', 'NWSA',
+  'VIA', 'VIAB'
 ];
 
 // Initialize cache with common stocks
@@ -107,8 +122,22 @@ function isKnownTickerWithPeriod(symbol: string): boolean {
   const [base, ext] = symbol.split('.');
   
   // Most NYSE/NASDAQ tickers with periods have a single letter after the period
-  if (base.length <= 4 && ext.length <= 1) {
-    console.log(`${symbol} matches NYSE/NASDAQ ticker pattern with period - auto-validating`);
+  // representing a share class (A, B, C, etc.)
+  if (base.length <= 4 && ext.length === 1) {
+    console.log(`${symbol} matches NYSE/NASDAQ ticker pattern with period (class shares) - auto-validating`);
+    return true;
+  }
+  
+  // Some ETFs and fund products use periods in their ticker symbols
+  if ((base.length <= 5) && (ext.length <= 2) && /^[A-Z]+$/.test(ext)) {
+    console.log(`${symbol} appears to be an ETF or fund product with a period - auto-validating`);
+    return true;
+  }
+  
+  // International exchange tickers sometimes use periods
+  if (symbol.endsWith('.L') || symbol.endsWith('.PA') || symbol.endsWith('.DE') || 
+      symbol.endsWith('.MI') || symbol.endsWith('.TO') || symbol.endsWith('.HK')) {
+    console.log(`${symbol} appears to be an international exchange ticker - auto-validating`);
     return true;
   }
   
@@ -361,12 +390,29 @@ async function fetchFromYahooFinance(symbol: string): Promise<StockData> {
   // Use a CORS proxy to bypass browser security issues when needed
   // This helps with "Failed to fetch" errors from client-side calls
   let useProxy = false;
-  let yahooUrl = `https://query1.finance.yahoo.com/v7/finance/chart/${encodeURIComponent(symbol)}?period1=${startTime}&period2=${endTime}&interval=${interval}&events=div,split`;
+  
+  // Special handling for tickers with periods
+  let yahooSymbol = symbol;
   
   // Log extra debug info for tickers with periods
   if (symbol.includes('.')) {
-    console.log(`Yahoo Finance ticker with period: ${symbol}, encoded as: ${encodeURIComponent(symbol)}`);
+    console.log(`Yahoo Finance ticker with period: ${symbol}`);
+    
+    // For class shares like BRK.B, Yahoo sometimes needs special formatting
+    // For common stock tickers with periods, use the standard format
+    if (isKnownTickerWithPeriod(symbol)) {
+      const [base, ext] = symbol.split('.');
+      
+      // For most class shares like BRK.B, use BRK-B format
+      if (ext.length === 1) {
+        yahooSymbol = `${base}-${ext}`;
+        console.log(`Converting ${symbol} to Yahoo Finance format: ${yahooSymbol}`);
+      }
+    }
   }
+  
+  // Encode the symbol (after any conversion)
+  let yahooUrl = `https://query1.finance.yahoo.com/v7/finance/chart/${encodeURIComponent(yahooSymbol)}?period1=${startTime}&period2=${endTime}&interval=${interval}&events=div,split`;
   
   // When running in the browser, we might need to use a proxy for Yahoo Finance
   if (typeof window !== 'undefined') {
@@ -492,6 +538,7 @@ async function fetchFromYahooFinance(symbol: string): Promise<StockData> {
       // Continue with the data, but log the concern
     }
     
+    // Mark as real data, not fallback
     const stockData = {
       symbol,
       priceHistory: priceData,
@@ -501,6 +548,7 @@ async function fetchFromYahooFinance(symbol: string): Promise<StockData> {
       minPrice: minPrice.toFixed(2),
       maxPrice: maxPrice.toFixed(2),
       dataPoints: priceData.length,
+      isFallback: false,
       timespan: '1Y'
     };
     
@@ -865,6 +913,7 @@ function generateFallbackData(symbol: string): StockData {
     maxPrice: maxPrice.toFixed(2),
     dataPoints: priceData.length,
     isFallback: true,
+    error: "Using simulated market data for calculations",
     timespan: '1Y'
   };
 }
@@ -999,9 +1048,9 @@ export async function fetchRealStockData(
   const normalizedSymbol = symbol.trim().toUpperCase();
   console.log(`Fetching data for ${normalizedSymbol}`);
   
-  // Always allow fallback for tickers with periods to ensure they work
+  // Set fallback as an option, but don't force it for period tickers
   const containsPeriod = normalizedSymbol.includes('.');
-  const shouldAllowFallback = options?.allowFallback !== false || containsPeriod;
+  const shouldAllowFallback = options?.allowFallback !== false;
   
   // Special handling for tickers with periods
   if (containsPeriod) {
@@ -1035,12 +1084,10 @@ export async function fetchRealStockData(
     return errorResult;
   }
   
-  // For common stocks and tickers with periods, always be ready with fallback data
+  // Prepare fallback data but don't use it yet
   let fallbackData: StockData | null = null;
-  if (COMMON_STOCKS.includes(normalizedSymbol) || 
-      isKnownTickerWithPeriod(normalizedSymbol) ||
-      containsPeriod) {
-    // Generate fallback data immediately for these stocks
+  if (COMMON_STOCKS.includes(normalizedSymbol) || isKnownTickerWithPeriod(normalizedSymbol)) {
+    // Generate fallback data preemptively for these stocks in case APIs fail
     fallbackData = generateFallbackData(normalizedSymbol);
   }
   
@@ -1227,7 +1274,7 @@ export async function fetchRealStockData(
     
     // Cache the error briefly
     dataCache.set(cacheKey, {
-      timestamp: Date.now() - (CACHE_TTL * 0.75), // Make it expire sooner
+      timestamp: Date.now() - CACHE_TTL/2, // Make it expire sooner
       data: errorResponse
     });
     

@@ -289,7 +289,18 @@ export default function GameSection() {
       // Track if we're using fallback data
       if (data1.isFallback || data2.isFallback) {
         console.log("Using fallback data for calculations");
-        setError("Using simulated market data for calculations");
+        
+        // Only show message when truly using simulated data, not for every case with a period
+        if (data1.error || data2.error) {
+          const errorMessage = data1.error || data2.error || "Using simulated market data for calculations";
+          setError(errorMessage);
+        } else {
+          // Clear any previous errors if we have real data
+          setError("");
+        }
+      } else {
+        // Clear any previous errors if we have real data
+        setError("");
       }
       
       // At this point, we have valid stock data for both stocks
