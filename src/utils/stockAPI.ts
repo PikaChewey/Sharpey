@@ -26,7 +26,13 @@ const COMMON_STOCKS = [
   'JPM', 'BAC', 'WFC', 'GS', 'V', 'MA', 'PYPL', 'PFE', 'JNJ', 'UNH',
   'PG', 'KO', 'PEP', 'MCD', 'SBUX', 'DIS', 'NFLX', 'CMCSA', 'T', 'VZ',
   'HD', 'LOW', 'TGT', 'WMT', 'COST', 'XOM', 'CVX', 'BP', 'SHEL', 'COP',
-  'SPY', 'QQQ', 'DIA', 'IWM', 'VTI'
+  'SPY', 'QQQ', 'DIA', 'IWM', 'VTI', 'BRK.A', 'BRK.B'
+];
+
+// Add a new array of common tickers with periods
+const COMMON_TICKERS_WITH_PERIODS = [
+  'BRK.A', 'BRK.B', 'BF.A', 'BF.B', 'HEI.A',
+  'NKE.B', 'GOOG.L', 'GOOGL.L', 'AAPL.L', 'MSFT.L'
 ];
 
 // Initialize cache with common stocks
@@ -82,7 +88,31 @@ function isValidTickerFormat(symbol: string): boolean {
   // Most stock symbols are 1-5 letters, optionally followed by a dot and additional characters
   // e.g., AAPL, MSFT, BRK.A, BRK.B
   const tickerRegex = /^[A-Z]{1,5}(\.[A-Z]+)?$/;
+  // Log the validation for debugging
+  console.log(`Validating ticker: ${symbol}, result: ${tickerRegex.test(symbol)}`);
   return tickerRegex.test(symbol);
+}
+
+// Add a special function to handle validation of tickers with periods
+function isKnownTickerWithPeriod(symbol: string): boolean {
+  if (!symbol.includes('.')) return false;
+  
+  // Check against our known list
+  if (COMMON_TICKERS_WITH_PERIODS.includes(symbol)) {
+    console.log(`${symbol} is a known ticker with period - automatically validating`);
+    return true;
+  }
+  
+  // Special logic for NYSE/NASDAQ symbols with periods
+  const [base, ext] = symbol.split('.');
+  
+  // Most NYSE/NASDAQ tickers with periods have a single letter after the period
+  if (base.length <= 4 && ext.length <= 1) {
+    console.log(`${symbol} matches NYSE/NASDAQ ticker pattern with period - auto-validating`);
+    return true;
+  }
+  
+  return false;
 }
 
 /**
@@ -113,8 +143,13 @@ async function fetchHistoricalStockData(symbol: string): Promise<StockData> {
   const functionName = 'TIME_SERIES_WEEKLY_ADJUSTED';
   
   // URL for Alpha Vantage API
-  const apiUrl = `${ALPHA_VANTAGE_URL}?function=${functionName}&symbol=${symbol}&apikey=${ALPHA_VANTAGE_KEY}&outputsize=full`;
+  const apiUrl = `${ALPHA_VANTAGE_URL}?function=${functionName}&symbol=${encodeURIComponent(symbol)}&apikey=${ALPHA_VANTAGE_KEY}&outputsize=full`;
   
+  // Log extra debug info for tickers with periods
+  if (symbol.includes('.')) {
+    console.log(`Processing ticker with period: ${symbol}, encoded as: ${encodeURIComponent(symbol)}`);
+  }
+
   console.log(`Alpha Vantage API URL for ${symbol}: ${apiUrl}`);
   
   try {
@@ -326,7 +361,12 @@ async function fetchFromYahooFinance(symbol: string): Promise<StockData> {
   // Use a CORS proxy to bypass browser security issues when needed
   // This helps with "Failed to fetch" errors from client-side calls
   let useProxy = false;
-  let yahooUrl = `https://query1.finance.yahoo.com/v7/finance/chart/${symbol}?period1=${startTime}&period2=${endTime}&interval=${interval}&events=div,split`;
+  let yahooUrl = `https://query1.finance.yahoo.com/v7/finance/chart/${encodeURIComponent(symbol)}?period1=${startTime}&period2=${endTime}&interval=${interval}&events=div,split`;
+  
+  // Log extra debug info for tickers with periods
+  if (symbol.includes('.')) {
+    console.log(`Yahoo Finance ticker with period: ${symbol}, encoded as: ${encodeURIComponent(symbol)}`);
+  }
   
   // When running in the browser, we might need to use a proxy for Yahoo Finance
   if (typeof window !== 'undefined') {
@@ -518,7 +558,12 @@ async function fetchFromBackupAPI(symbol: string): Promise<StockData> {
   const toDate = now.toISOString().split('T')[0];
   
   // URL for historical prices (1 year)
-  let backupUrl = `${BACKUP_API_URL}/historical-price-full/${symbol}?from=${fromDate}&to=${toDate}&apikey=${BACKUP_API_KEY}`;
+  let backupUrl = `${BACKUP_API_URL}/historical-price-full/${encodeURIComponent(symbol)}?from=${fromDate}&to=${toDate}&apikey=${BACKUP_API_KEY}`;
+  
+  // Log extra debug info for tickers with periods
+  if (symbol.includes('.')) {
+    console.log(`Backup API ticker with period: ${symbol}, encoded as: ${encodeURIComponent(symbol)}`);
+  }
   
   // Use proxy for browser requests to avoid CORS issues
   let useProxy = false;
@@ -672,8 +717,13 @@ async function fetchFromBackupAPI(symbol: string): Promise<StockData> {
 async function checkSymbolValidity(symbol: string): Promise<boolean> {
   try {
     // Use Alpha Vantage's SYMBOL_SEARCH endpoint to validate
-    const url = `${ALPHA_VANTAGE_URL}?function=SYMBOL_SEARCH&keywords=${symbol}&apikey=${ALPHA_VANTAGE_KEY}`;
+    const url = `${ALPHA_VANTAGE_URL}?function=SYMBOL_SEARCH&keywords=${encodeURIComponent(symbol)}&apikey=${ALPHA_VANTAGE_KEY}`;
     
+    // Log extra debug info for tickers with periods
+    if (symbol.includes('.')) {
+      console.log(`Validating ticker with period: ${symbol}, encoded as: ${encodeURIComponent(symbol)}`);
+    }
+
     const response = await fetch(url);
     
     if (!response.ok) {
@@ -840,8 +890,8 @@ export async function validateStockSymbol(symbol: string): Promise<{ isValid: bo
   }
   
   try {
-    // For common stocks, consider them valid to avoid API calls
-    if (COMMON_STOCKS.includes(symbol)) {
+    // For common stocks and known tickers with periods, consider them valid to avoid API calls
+    if (COMMON_STOCKS.includes(symbol) || isKnownTickerWithPeriod(symbol)) {
       validSymbolsCache.add(symbol);
       return { isValid: true };
     }
@@ -860,7 +910,7 @@ export async function validateStockSymbol(symbol: string): Promise<{ isValid: bo
     console.error(`Error validating stock symbol ${symbol}:`, error);
     
     // Consider common stocks valid even if API check fails
-    if (COMMON_STOCKS.includes(symbol)) {
+    if (COMMON_STOCKS.includes(symbol) || isKnownTickerWithPeriod(symbol)) {
       validSymbolsCache.add(symbol);
       return { isValid: true };
     }
@@ -949,8 +999,19 @@ export async function fetchRealStockData(
   const normalizedSymbol = symbol.trim().toUpperCase();
   console.log(`Fetching data for ${normalizedSymbol}`);
   
-  // Always generate fallback data for common stocks by default
-  const shouldAllowFallback = options?.allowFallback !== false;
+  // Always allow fallback for tickers with periods to ensure they work
+  const containsPeriod = normalizedSymbol.includes('.');
+  const shouldAllowFallback = options?.allowFallback !== false || containsPeriod;
+  
+  // Special handling for tickers with periods
+  if (containsPeriod) {
+    console.log(`Special handling for ticker with period: ${normalizedSymbol}`);
+    
+    // Auto-validate tickers with periods that match common patterns
+    if (isKnownTickerWithPeriod(normalizedSymbol)) {
+      validSymbolsCache.add(normalizedSymbol);
+    }
+  }
   
   // Check cache first
   const cacheKey = `stock_${normalizedSymbol}`;
@@ -960,12 +1021,12 @@ export async function fetchRealStockData(
     return cachedData.data;
   }
   
-  // Validate the symbol against common stocks
-  if (!COMMON_STOCKS.includes(normalizedSymbol) && !isValidTickerFormat(normalizedSymbol)) {
-    console.warn(`Invalid stock symbol: ${normalizedSymbol}`);
+  // Validate the symbol format - we already know the regex handles periods correctly
+  if (!isValidTickerFormat(normalizedSymbol)) {
+    console.warn(`Invalid stock symbol format: ${normalizedSymbol}`);
     
     // For invalid symbols, return error but cache the result to avoid repeated validation
-    const errorResult = { error: `Invalid stock symbol: ${normalizedSymbol}`, symbol: normalizedSymbol };
+    const errorResult = { error: `Invalid stock symbol format: ${normalizedSymbol}`, symbol: normalizedSymbol };
     dataCache.set(cacheKey, {
       timestamp: Date.now(),
       data: errorResult
@@ -974,10 +1035,12 @@ export async function fetchRealStockData(
     return errorResult;
   }
   
-  // For common stocks, always be ready with fallback data
+  // For common stocks and tickers with periods, always be ready with fallback data
   let fallbackData: StockData | null = null;
-  if (COMMON_STOCKS.includes(normalizedSymbol)) {
-    // Generate fallback data immediately for common stocks
+  if (COMMON_STOCKS.includes(normalizedSymbol) || 
+      isKnownTickerWithPeriod(normalizedSymbol) ||
+      containsPeriod) {
+    // Generate fallback data immediately for these stocks
     fallbackData = generateFallbackData(normalizedSymbol);
   }
   

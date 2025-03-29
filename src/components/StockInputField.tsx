@@ -1,7 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaSearch, FaExclamationTriangle, FaTimes } from 'react-icons/fa';
+
+// Basic validation function for ticker format
+const isValidTickerFormat = (symbol: string): boolean => {
+  if (!symbol) return true; // Empty is valid (will be caught elsewhere)
+  // Allow 1-5 uppercase letters, optionally followed by a dot and more uppercase letters
+  const result = /^[A-Z]{1,5}(\.[A-Z]+)?$/.test(symbol);
+  
+  // Log special information for tickers with periods to help with debugging
+  if (symbol.includes('.')) {
+    console.log(`Validating ticker with period in StockInputField: ${symbol}, result: ${result}`);
+  }
+  
+  return result;
+};
 
 interface StockInputFieldProps {
   label?: string;
@@ -38,6 +52,27 @@ export default function StockInputField({
     if (setError) setError('');
   };
 
+  // Validate the ticker format when the input changes
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value.toUpperCase();
+    onChange(newValue);
+    
+    // Clear error when input changes
+    if (setError && error) {
+      setError('');
+    }
+  };
+
+  // Validate when the field loses focus
+  const handleBlur = () => {
+    setIsFocused(false);
+    
+    // Only validate if there's a value
+    if (value && !isValidTickerFormat(value) && setError) {
+      setError(`Invalid ticker format: ${value}`);
+    }
+  };
+
   return (
     <div className="mb-4" style={{ transform: `rotate(${rotation}deg)` }}>
       <label 
@@ -64,10 +99,10 @@ export default function StockInputField({
             type="text"
             id={`stock-${index}`}
             value={value}
-            onChange={(e) => onChange(e.target.value.toUpperCase())}
+            onChange={handleInputChange}
             placeholder={placeholder}
             onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
+            onBlur={handleBlur}
             className="
               w-full py-2 pl-3 pr-10 z-10
               bg-transparent font-handwritten text-lg
