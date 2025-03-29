@@ -171,7 +171,6 @@ export default function GameSection() {
   const [error, setError] = useState<string>('');
   const [successMessage, setSuccessMessage] = useState<string>('');
   const [showComparison, setShowComparison] = useState<boolean>(false);
-  const [showAdvancedMetrics, setShowAdvancedMetrics] = useState<boolean>(false);
   const [username, setUsername] = useState<string>('');
   const [isUsernameModalOpen, setIsUsernameModalOpen] = useState<boolean>(false);
   const [portfoliosCreated, setPortfoliosCreated] = useState<number>(0);
@@ -698,18 +697,6 @@ with a Sharpe Ratio of ${portfolioSharpeRatio.toFixed(2)}!`;
                     <FaSave className="h-4 w-4 mr-1" />
                     <span>Save</span>
                   </button>
-                  
-                  <button
-                    onClick={() => setShowAdvancedMetrics(!showAdvancedMetrics)}
-                    className={`p-2 rounded transition-colors ${
-                      showAdvancedMetrics 
-                        ? 'text-notebook-blue' 
-                        : 'text-notebook-gray hover:text-notebook-blue'
-                    }`}
-                    title="Toggle Advanced Metrics"
-                  >
-                    <FaInfoCircle className="h-5 w-5" />
-                  </button>
                 </div>
               </div>
 
@@ -722,7 +709,6 @@ with a Sharpe Ratio of ${portfolioSharpeRatio.toFixed(2)}!`;
                   returns={stockData1?.returns}
                   volatility={stockData1?.volatility}
                   badge={stockData1?.isFallback ? "Simulated Data" : ""}
-                  showAdvanced={showAdvancedMetrics}
                 />
                 
                 <SharpeRatioCard
@@ -732,7 +718,6 @@ with a Sharpe Ratio of ${portfolioSharpeRatio.toFixed(2)}!`;
                   returns={stockData2?.returns}
                   volatility={stockData2?.volatility}
                   badge={stockData2?.isFallback ? "Simulated Data" : ""}
-                  showAdvanced={showAdvancedMetrics}
                 />
                 
                 <SharpeRatioCard
@@ -744,7 +729,6 @@ with a Sharpe Ratio of ${portfolioSharpeRatio.toFixed(2)}!`;
                   volatility={portfolioVolatility !== null ? portfolioVolatility : undefined}
                   weightDetails={`${confirmedStock1} (${confirmedWeight}%) + ${confirmedStock2} (${100-confirmedWeight}%)`}
                   sortinoRatio={sortinoRatio}
-                  showAdvanced={showAdvancedMetrics}
                 />
               </div>
 

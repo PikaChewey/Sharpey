@@ -12,7 +12,6 @@ interface SharpeRatioCardProps {
   badge?: string;
   weightDetails?: string;
   sortinoRatio?: number | null;
-  showAdvanced?: boolean;
 }
 
 export default function SharpeRatioCard({
@@ -25,7 +24,6 @@ export default function SharpeRatioCard({
   badge,
   weightDetails,
   sortinoRatio,
-  showAdvanced = false,
 }: SharpeRatioCardProps) {
   // Function to determine color based on Sharpe Ratio value
   const getRatioColor = (ratio: number) => {
@@ -114,30 +112,28 @@ export default function SharpeRatioCard({
             <span>{getRatioDescription(sharpeRatio)}</span>
           </div>
           
-          {showAdvanced && (
-            <div className="mt-3 pt-3 border-t border-notebook-line dark:border-notebook-dark-line sharpe-analysis-text">
-              {returns !== undefined && (
-                <div className="flex justify-between text-xs mb-1">
-                  <span className="text-gray-500 dark:text-gray-400">Return:</span>
-                  <span className="font-medium">{(returns * 100).toFixed(2)}%</span>
-                </div>
-              )}
-              
-              {volatility !== undefined && (
-                <div className="flex justify-between text-xs mb-1">
-                  <span className="text-gray-500 dark:text-gray-400">Volatility:</span>
-                  <span className="font-medium">{(volatility * 100).toFixed(2)}%</span>
-                </div>
-              )}
-              
-              {sortinoRatio !== undefined && sortinoRatio !== null && (
-                <div className="flex justify-between text-xs">
-                  <span className="text-gray-500 dark:text-gray-400">Sortino Ratio:</span>
-                  <span className="font-medium">{sortinoRatio.toFixed(2)}</span>
-                </div>
-              )}
-            </div>
-          )}
+          <div className="mt-3 pt-3 border-t border-notebook-line dark:border-notebook-dark-line sharpe-analysis-text">
+            {returns !== undefined && (
+              <div className="flex justify-between text-xs mb-1">
+                <span className="text-gray-500 dark:text-gray-400">Return:</span>
+                <span className="font-medium">{(returns * 100).toFixed(2)}%</span>
+              </div>
+            )}
+            
+            {volatility !== undefined && (
+              <div className="flex justify-between text-xs mb-1">
+                <span className="text-gray-500 dark:text-gray-400">Volatility:</span>
+                <span className="font-medium">{(volatility * 100).toFixed(2)}%</span>
+              </div>
+            )}
+            
+            {sortinoRatio !== undefined && sortinoRatio !== null && (
+              <div className="flex justify-between text-xs">
+                <span className="text-gray-500 dark:text-gray-400">Sortino Ratio:</span>
+                <span className="font-medium">{sortinoRatio.toFixed(2)}</span>
+              </div>
+            )}
+          </div>
         </>
       ) : (
         <div className="text-2xl font-bold mt-1 text-gray-400 dark:text-gray-600 sharpe-analysis-value">
