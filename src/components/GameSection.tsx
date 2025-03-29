@@ -692,10 +692,11 @@ with a Sharpe Ratio of ${portfolioSharpeRatio.toFixed(2)}!`;
                   <button
                     onClick={handleSavePortfolio}
                     disabled={!portfolioSharpeRatio}
-                    className="p-2 rounded text-notebook-gray hover:text-notebook-blue disabled:opacity-50 disabled:hover:text-notebook-gray transition-colors"
+                    className="px-3 py-1 rounded flex items-center bg-notebook-paper dark:bg-notebook-dark-paper border border-notebook-line dark:border-notebook-dark-line text-notebook-gray hover:text-notebook-blue hover:bg-blue-50 dark:hover:bg-blue-900/20 disabled:opacity-50 disabled:hover:text-notebook-gray disabled:hover:bg-transparent transition-colors font-handwritten"
                     title="Save Portfolio"
                   >
-                    <FaSave className="h-5 w-5" />
+                    <FaSave className="h-4 w-4 mr-1" />
+                    <span>Save</span>
                   </button>
                   
                   <button

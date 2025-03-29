@@ -21,8 +21,9 @@ export default function Footer() {
               stock portfolios. Optimize your investments and understand risk-adjusted returns.
             </p>
             <div className="flex space-x-4">
-              <a href="mailto:zhou-stanley@outlook.com,bryan.yao205@gmail.com" className="text-notebook-gray dark:text-gray-100 hover:text-notebook-blue dark:hover:text-blue-300 transition-colors transform hover:scale-110">
-                <FaEnvelope className="h-5 w-5" />
+              <a href="mailto:zhou-stanley@outlook.com,bryan.yao205@gmail.com" className="text-notebook-gray dark:text-gray-100 hover:text-notebook-blue dark:hover:text-blue-300 transition-colors transform hover:scale-110 flex items-center font-handwritten">
+                <FaEnvelope className="h-5 w-5 mr-2" />
+                <span>Contact us</span>
               </a>
             </div>
           </div>

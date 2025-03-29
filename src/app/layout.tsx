@@ -10,7 +10,7 @@ import {
   Shadows_Into_Light,
   Gochi_Hand
 } from 'next/font/google';
-
+ 
 // Component imports
 import Navbar from '@/components/Navbar';
 import { ThemeProvider } from '@/components/ThemeProvider';

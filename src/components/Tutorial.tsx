@@ -52,27 +52,27 @@ export default function Tutorial({ onPlayNowClick }: TutorialProps) {
       icon: <FaChartLine className="w-8 h-8" />,
       content: (
         <>
-          <p className="mb-4">
+          <p className="mb-4 font-handwritten">
             The Sharpe Ratio is a measure developed by Nobel laureate William F. Sharpe to help investors understand the return of an investment compared to its risk.
           </p>
-          <p className="mb-4">
+          <p className="mb-4 font-handwritten">
             It is calculated by subtracting the risk-free rate from the expected return, then dividing by the standard deviation of the portfolio&apos;s excess return.
           </p>
           
           <div className="my-6 p-5 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800 no-lines">
-            <p className="text-center font-medium">
+            <p className="text-center font-medium font-handwritten">
               The Sharpe Ratio provides a way to compare different investments on a risk-adjusted basis.
               Higher ratios indicate better risk-adjusted performance.
             </p>
           </div>
           
           <div className="mt-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg no-lines">
-            <code className="text-center block">
+            <code className="text-center block font-handwritten">
               Sharpe Ratio = (Rp - Rf) / σp
             </code>
-            <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+            <div className="mt-2 text-sm text-gray-600 dark:text-gray-400 font-handwritten">
               Where:
-              <ul className="list-disc pl-5 mt-1">
+              <ul className="list-disc pl-5 mt-1 font-handwritten">
                 <li>Rp = Expected portfolio return</li>
                 <li>Rf = Risk-free rate</li>
                 <li>σp = Portfolio standard deviation</li>
@@ -87,20 +87,20 @@ export default function Tutorial({ onPlayNowClick }: TutorialProps) {
       icon: <FaBalanceScale className="w-8 h-8" />,
       content: (
         <>
-          <p className="mb-4">
+          <p className="mb-4 font-handwritten">
             The Sharpe Ratio helps investors determine how much additional return they&apos;re receiving for the extra volatility they endure for holding a riskier asset.
           </p>
-          <p className="mb-4">
+          <p className="mb-4 font-handwritten">
             A higher Sharpe Ratio indicates better risk-adjusted performance:
           </p>
-          <ul className="list-disc pl-5 space-y-2">
+          <ul className="list-disc pl-5 space-y-2 font-handwritten">
             <li><span className="font-medium text-red-600 dark:text-red-400">Negative Sharpe Ratio</span>: Underperforming the risk-free rate</li>
             <li><span className="font-medium text-orange-600 dark:text-orange-400">0 to 0.5</span>: Below average risk-adjusted returns</li>
             <li><span className="font-medium text-yellow-600 dark:text-yellow-400">0.5 to 1.0</span>: Average performance</li>
             <li><span className="font-medium text-green-600 dark:text-green-400">1.0 to 2.0</span>: Good risk-adjusted performance</li>
             <li><span className="font-medium text-emerald-600 dark:text-emerald-400">&gt; 2.0</span>: Excellent performance</li>
           </ul>
-          <p className="mt-4">
+          <p className="mt-4 font-handwritten">
             The average hedge fund has a Sharpe Ratio between 0.5 and 1.0, while the S&P 500 historically has had a Sharpe Ratio around 0.4.
           </p>
         </>
@@ -111,19 +111,19 @@ export default function Tutorial({ onPlayNowClick }: TutorialProps) {
       icon: <FaProjectDiagram className="w-8 h-8" />,
       content: (
         <>
-          <p className="mb-4">
+          <p className="mb-4 font-handwritten">
             Diversification is a risk management strategy that involves spreading investments across various financial instruments, industries, and asset classes.
           </p>
-          <p className="mb-4">
+          <p className="mb-4 font-handwritten">
             Key benefits of portfolio diversification:
           </p>
-          <ul className="list-disc pl-5 space-y-2">
+          <ul className="list-disc pl-5 space-y-2 font-handwritten">
             <li><span className="font-medium">Reduces unsystematic risk</span>: Minimizes the impact of poor performance from any single investment</li>
             <li><span className="font-medium">Preserves capital</span>: Helps protect your overall portfolio value</li>
             <li><span className="font-medium">Provides more consistent returns</span>: Smooths out the ups and downs over time</li>
             <li><span className="font-medium">Can improve Sharpe Ratio</span>: Potentially increases returns while reducing volatility</li>
           </ul>
-          <p className="mt-4">
+          <p className="mt-4 font-handwritten">
             In our game, you&apos;ll experiment with different portfolio allocations between two assets to find the optimal mix that maximizes your Sharpe Ratio.
           </p>
         </>
@@ -134,10 +134,10 @@ export default function Tutorial({ onPlayNowClick }: TutorialProps) {
       icon: <FaChartLine className="w-8 h-8" />,
       content: (
         <>
-          <p className="mb-4">
+          <p className="mb-4 font-handwritten">
             Beyond the Sharpe Ratio, our game shows additional risk metrics to help you evaluate your portfolio:
           </p>
-          <ul className="list-disc pl-5 space-y-2">
+          <ul className="list-disc pl-5 space-y-2 font-handwritten">
             <li>
               <span className="font-medium">Sortino Ratio</span>: Similar to Sharpe Ratio but only considers &quot;downside&quot; deviation. 
               It focuses on harmful volatility rather than total volatility.
@@ -151,7 +151,7 @@ export default function Tutorial({ onPlayNowClick }: TutorialProps) {
               Higher standard deviation means more volatility and potentially higher risk.
             </li>
           </ul>
-          <p className="mt-4">
+          <p className="mt-4 font-handwritten">
             Advanced investors consider all these metrics together when making investment decisions.
           </p>
         </>
@@ -162,10 +162,10 @@ export default function Tutorial({ onPlayNowClick }: TutorialProps) {
       icon: <FaCalculator className="w-8 h-8" />,
       content: (
         <>
-          <p className="mb-4">
+          <p className="mb-4 font-handwritten">
             In our Sharpes game, you&apos;ll build a portfolio and test its Sharpe Ratio:
           </p>
-          <ol className="list-decimal pl-5 space-y-2">
+          <ol className="list-decimal pl-5 space-y-2 font-handwritten">
             <li>Enter two stock ticker symbols (e.g., MSFT, AAPL)</li>
             <li>Adjust the weighting slider to allocate your investment</li>
             <li>The game will calculate the 1-year trailing Sharpe Ratio</li>
@@ -173,7 +173,7 @@ export default function Tutorial({ onPlayNowClick }: TutorialProps) {
             <li>Try different combinations to achieve the highest ratio</li>
             <li>Save your best portfolios to the leaderboard</li>
           </ol>
-          <p className="mt-4">
+          <p className="mt-4 font-handwritten">
             The goal is to create a portfolio with the highest possible Sharpe Ratio. Can you beat the market and other players?
           </p>
         </>
@@ -188,7 +188,7 @@ export default function Tutorial({ onPlayNowClick }: TutorialProps) {
           {/* Add the doodle elements as background */}
           <TutorialDoodleElements />
           
-          <h2 className="text-4xl font-handwritten mb-8 text-center relative z-10 bg-white dark:bg-gray-900 py-2 px-4 rounded inline-block mx-auto no-lines">Learn About the Sharpe Ratio</h2>
+          <h2 className="text-4xl font-handwritten mb-8 text-center relative z-10 bg-white dark:bg-gray-900 py-2 px-4 rounded mx-auto block w-max no-lines">Learn About the Sharpe Ratio</h2>
           <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border border-gray-300 dark:border-gray-700 relative z-10 no-lines">
             {/* Rest of tutorial component */}
             <div className="mb-8">
@@ -196,7 +196,7 @@ export default function Tutorial({ onPlayNowClick }: TutorialProps) {
                 {slides[currentSlide].icon}
                 <h3 className="text-2xl font-handwritten">{slides[currentSlide].title}</h3>
               </div>
-              <div className="prose dark:prose-invert max-w-none">
+              <div className="prose dark:prose-invert max-w-none font-handwritten">
                 {slides[currentSlide].content}
               </div>
             </div>
