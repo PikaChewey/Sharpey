@@ -185,7 +185,7 @@ h6 {
 
 /* Main container for consistent padding */
 .container-custom {
-  @apply max-w-7xl mx-auto px-4 sm:px-6 py-8 pt-16; /* Reduced padding-top for smaller navbar */
+  @apply max-w-7xl mx-auto px-4 sm:px-6 py-8 pt-20; /* Increased padding-top for fixed navbar */
 }
 
 /* Sections with notebook paper background */
@@ -718,7 +718,7 @@ textarea:focus {
 
 @layer components {
   .container-custom {
-    @apply container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
+    @apply container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl pt-20; /* Added top padding for fixed navbar */
   }
 
   .btn {
@@ -817,7 +817,13 @@ select:focus {
 
 /* Navbar spacing adjustment to prevent overlap */
 nav + main {
-  padding-top: 5rem; /* Add top padding to main content when following navbar */
+  padding-top: 8rem !important; /* Add top padding to main content when following navbar */
+}
+
+/* Ensure the fixed nav bar is always on top */
+.fixed {
+  position: fixed !important;
+  z-index: 100 !important;
 }
 
 @layer utilities {

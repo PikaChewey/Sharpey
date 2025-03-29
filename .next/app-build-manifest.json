@@ -1,0 +1,58 @@
+{
+  "pages": {
+    "/global-error": [
+      "static/chunks/runtime.js",
+      "static/chunks/main-app.js",
+      "static/chunks/commons.js",
+      "static/chunks/app/global-error.js"
+    ],
+    "/page": [
+      "static/chunks/runtime.js",
+      "static/chunks/main-app.js",
+      "static/chunks/framework.js",
+      "static/chunks/commons.js",
+      "static/chunks/vendors-_app-pages-browser_node_modules_next_dist_api_image_js-_app-pages-browser_node_module-666f32.js",
+      "static/chunks/app/page.js"
+    ],
+    "/layout": [
+      "static/chunks/runtime.js",
+      "static/chunks/main-app.js",
+      "static/chunks/framework.js",
+      "static/chunks/commons.js",
+      "static/chunks/vendors-_app-pages-browser_node_modules_next_dist_api_navigation_js-_app-pages-browser_node_m-980cdc.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
+    ],
+    "/error": [
+      "static/chunks/runtime.js",
+      "static/chunks/main-app.js",
+      "static/chunks/commons.js",
+      "static/chunks/app/error.js"
+    ],
+    "/loading": [
+      "static/chunks/runtime.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/loading.js"
+    ],
+    "/not-found": [
+      "static/chunks/runtime.js",
+      "static/chunks/main-app.js",
+      "static/chunks/commons.js",
+      "static/chunks/app/not-found.js"
+    ],
+    "/leaderboard/page": [
+      "static/chunks/runtime.js",
+      "static/chunks/main-app.js",
+      "static/chunks/framework.js",
+      "static/chunks/commons.js",
+      "static/chunks/app/leaderboard/page.js"
+    ],
+    "/tutorial/page": [
+      "static/chunks/runtime.js",
+      "static/chunks/main-app.js",
+      "static/chunks/framework.js",
+      "static/chunks/commons.js",
+      "static/chunks/app/tutorial/page.js"
+    ]
+  }
+}

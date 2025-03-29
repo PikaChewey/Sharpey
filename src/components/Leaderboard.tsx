@@ -10,48 +10,48 @@ import { Portfolio, getSavedPortfolios, getPortfoliosTested } from '@/utils/loca
 const GLOBAL_LEADERBOARD = [
   {
     id: '1',
-    username: 'InvestorPro',
-    stock1: 'AAPL',
-    stock2: 'NVDA',
-    weight: 60,
-    sharpeRatio: 2.41,
-    date: '2023-04-15T14:48:00.000Z',
+    username: 'PikaChewy',
+    stock1: 'V',
+    stock2: 'BRK.B',
+    weight: 0.4,
+    sharpeRatio: 1.65,
+    date: '2024-04-15T14:48:00.000Z',
   },
   {
     id: '2',
-    username: 'MarketWizard',
-    stock1: 'MSFT',
-    stock2: 'GOOGL',
-    weight: 50,
-    sharpeRatio: 2.27,
-    date: '2023-04-16T09:23:00.000Z',
+    username: 'Stewy',
+    stock1: 'BRK.B',
+    stock2: 'NVDA',
+    weight: 0.8,
+    sharpeRatio: 1.41,
+    date: '2024-04-16T09:23:00.000Z',
   },
   {
     id: '3',
     username: 'TradingQueen',
     stock1: 'AMZN',
     stock2: 'TSLA',
-    weight: 40,
-    sharpeRatio: 2.18,
-    date: '2023-04-14T11:05:00.000Z',
+    weight: 0.3,
+    sharpeRatio: 0.83,
+    date: '2024-04-14T11:05:00.000Z',
   },
   {
     id: '4',
     username: 'FinanceGuru',
-    stock1: 'BRK.B',
-    stock2: 'V',
-    weight: 70,
-    sharpeRatio: 1.98,
-    date: '2023-04-13T16:30:00.000Z',
+    stock1: 'AAPL',
+    stock2: 'NVDA',
+    weight: 0.5,
+    sharpeRatio: 0.79,
+    date: '2024-04-13T16:30:00.000Z',
   },
   {
     id: '5',
     username: 'StockMaster',
     stock1: 'JPM',
-    stock2: 'DIS',
-    weight: 55,
-    sharpeRatio: 1.89,
-    date: '2023-04-12T10:15:00.000Z',
+    stock2: 'AMZN',
+    weight: 0.5,
+    sharpeRatio: 0.65,
+    date: '2024-04-12T10:15:00.000Z',
   },
 ];
 
@@ -132,7 +132,7 @@ export default function Leaderboard() {
           <LeaderboardDoodleElements />
           
           <div className="text-center mb-10 relative z-10">
-            <h2 className="text-4xl font-handwritten mb-3">Leaderboard</h2>
+            <h2 className="text-4xl font-handwritten mb-3">Leaderboard (Coming Soon)</h2>
             <p className="text-lg max-w-2xl mx-auto font-handwritten text-gray-700 dark:text-gray-300">
               See how your portfolio compares with others! The highest Sharpe Ratio wins.
             </p>

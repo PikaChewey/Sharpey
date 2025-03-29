@@ -76,10 +76,10 @@ export default function RootLayout({
       <body className={`${inter.variable} ${mono.variable} ${architects.variable} ${indie.variable} ${shadows.variable} ${gochi.variable} font-sans bg-notebook-paper dark:bg-notebook-dark-paper min-h-screen lined-background`}>
         <ThemeProvider>
           <Navbar />
-          <div className="relative min-h-screen">
+          <div className="relative min-h-screen pt-16">
             <ClientComponentWrapper />
             <DoodleBackground />
-            <main className="container mx-auto px-4 py-4 mt-2 relative z-10">
+            <main className="container mx-auto px-4 py-4 mt-20 relative z-10">
               {children}
             </main>
           </div>

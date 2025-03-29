@@ -30,11 +30,12 @@ export default function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 lined-background ${
+      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 lined-background ${
         isScrolled
           ? 'bg-notebook-paper/95 dark:bg-notebook-dark-paper/95 backdrop-blur-md shadow-md'
           : 'bg-notebook-paper/80 dark:bg-notebook-dark-paper/80 backdrop-blur-sm'
       }`}
+      style={{ position: 'fixed', width: '100%' }}
     >
       <div className="container-custom flex items-center justify-between h-14 md:h-16">
         {/* Logo */}

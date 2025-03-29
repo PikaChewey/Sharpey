@@ -1,0 +1,138 @@
+warning: in the working copy of '.next/app-build-manifest.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/build-manifest.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/server/app-paths-manifest.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/server/app/page.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/server/framework.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/server/middleware-build-manifest.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/server/middleware-manifest.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/server/server-reference-manifest.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/server/webpack-runtime.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/static/chunks/app-pages-internals.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/static/chunks/app/error.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/static/chunks/app/global-error.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/static/chunks/app/layout.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/static/chunks/app/loading.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/static/chunks/app/not-found.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/static/chunks/app/page.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/static/chunks/commons.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/static/chunks/framework.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/static/chunks/main-app.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/static/chunks/runtime.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/static/chunks/vendors-_app-pages-browser_node_modules_next_dist_api_image_js-_app-pages-browser_node_module-666f32.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/static/chunks/vendors-_app-pages-browser_node_modules_next_dist_client_components_client-page_js-_app-pages-7d523d.js', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/static/css/app/layout.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/trace', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/types/app/layout.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/types/app/page.ts', LF will be replaced by CRLF the next time Git touches it
+.next/BUILD_ID
+.next/app-build-manifest.json
+.next/app-path-routes-manifest.json
+.next/cache/.tsbuildinfo
+.next/cache/eslint/.cache_1c6mxpl
+.next/cache/webpack/client-development/0.pack.gz
+.next/cache/webpack/client-development/1.pack.gz
+.next/cache/webpack/client-development/index.pack.gz
+.next/cache/webpack/client-development/index.pack.gz.old
+.next/cache/webpack/client-production/0.pack
+.next/cache/webpack/client-production/index.pack
+.next/cache/webpack/edge-server-production/0.pack
+.next/cache/webpack/edge-server-production/index.pack
+.next/cache/webpack/server-development/0.pack.gz
+.next/cache/webpack/server-development/index.pack.gz
+.next/cache/webpack/server-production/0.pack
+.next/cache/webpack/server-production/index.pack
+.next/export-marker.json
+.next/images-manifest.json
+.next/next-minimal-server.js.nft.json
+.next/next-server.js.nft.json
+.next/prerender-manifest.json
+.next/required-server-files.json
+.next/routes-manifest.json
+.next/server/803.js
+.next/server/app/_not-found.html
+.next/server/app/_not-found.meta
+.next/server/app/_not-found.rsc
+.next/server/app/_not-found/page.js
+.next/server/app/_not-found/page.js.nft.json
+.next/server/app/_not-found/page_client-reference-manifest.js
+.next/server/app/index.html
+.next/server/app/index.meta
+.next/server/app/index.rsc
+.next/server/app/leaderboard.html
+.next/server/app/leaderboard.meta
+.next/server/app/leaderboard.rsc
+.next/server/app/leaderboard/page.js
+.next/server/app/leaderboard/page.js.nft.json
+.next/server/app/leaderboard/page_client-reference-manifest.js
+.next/server/app/page.js
+.next/server/app/page.js.nft.json
+.next/server/app/page_client-reference-manifest.js
+.next/server/app/tutorial.html
+.next/server/app/tutorial.meta
+.next/server/app/tutorial.rsc
+.next/server/app/tutorial/page.js
+.next/server/app/tutorial/page.js.nft.json
+.next/server/app/tutorial/page_client-reference-manifest.js
+.next/server/chunks/font-manifest.json
+.next/server/commons.js
+.next/server/font-manifest.json
+.next/server/framework.js
+.next/server/functions-config-manifest.json
+.next/server/interception-route-rewrite-manifest.js
+.next/server/pages/404.html
+.next/server/pages/500.html
+.next/server/pages/_app.js
+.next/server/pages/_app.js.nft.json
+.next/server/pages/_document.js
+.next/server/pages/_document.js.nft.json
+.next/server/pages/_error.js
+.next/server/pages/_error.js.nft.json
+.next/server/server-reference-manifest.json
+.next/server/vendors-_rsc_node_modules_next_font_google_target_css_path_src_app_layout_tsx_import_Architec-373fbd.js
+.next/server/webpack-runtime.js
+.next/static/chunks/362-23aaf88746aafb6c.js
+.next/static/chunks/539-d3ebb1b7ee548a58.js
+.next/static/chunks/652-232079895705ba88.js
+.next/static/chunks/app/_not-found/page-1799466ccbd3a007.js
+.next/static/chunks/app/error-093a647b71e713cf.js
+.next/static/chunks/app/error.js
+.next/static/chunks/app/global-error-273927be008ce28b.js
+.next/static/chunks/app/global-error.js
+.next/static/chunks/app/layout-325b3a7326d62eeb.js
+.next/static/chunks/app/layout.js
+.next/static/chunks/app/leaderboard/page-1022abad4864d46a.js
+.next/static/chunks/app/loading-c8b0e9148ddc5653.js
+.next/static/chunks/app/not-found-b3eb040d183bd3c2.js
+.next/static/chunks/app/page-210baff55cef674e.js
+.next/static/chunks/app/page.js
+.next/static/chunks/app/tutorial/page-374de8e7c8a1dd95.js
+.next/static/chunks/commons-1a91c7081b9f1799.js
+.next/static/chunks/commons.js
+.next/static/chunks/framework-51bda56263537683.js
+.next/static/chunks/framework.js
+.next/static/chunks/main-4572d4430ef41407.js
+.next/static/chunks/main-app-09705d5a148a73aa.js
+.next/static/chunks/main-app.js
+.next/static/chunks/pages/_app-b90b4bce78d89f34.js
+.next/static/chunks/pages/_error-c495ccc340e0742a.js
+.next/static/chunks/polyfills-42372ed130431b0a.js
+.next/static/chunks/runtime-6362e232133045b5.js
+.next/static/chunks/runtime.js
+.next/static/chunks/vendors-_app-pages-browser_node_modules_next_dist_api_image_js-_app-pages-browser_node_module-666f32.js
+.next/static/chunks/vendors-_app-pages-browser_node_modules_next_dist_client_components_client-page_js-_app-pages-7d523d.js
+.next/static/css/21540472c48ae92b.css
+.next/static/css/afdf2124420548d2.css
+.next/static/css/app/layout.css
+.next/static/gg3eVASrfvDlrrHJxmLP2/_buildManifest.js
+.next/static/gg3eVASrfvDlrrHJxmLP2/_ssgManifest.js
+.next/static/webpack/a51e67c60db9dd63.runtime.hot-update.json
+.next/static/webpack/app/layout.a51e67c60db9dd63.hot-update.js
+.next/static/webpack/runtime.a51e67c60db9dd63.hot-update.js
+.next/trace
+.next/types/app/leaderboard/page.ts
+.next/types/app/tutorial/page.ts
+node_modules/.package-lock.json
+package-lock.json
+src/components/GameSection.tsx
+src/components/StockInputField.tsx
+src/utils/stockAPI.ts
