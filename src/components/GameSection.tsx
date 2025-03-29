@@ -197,6 +197,25 @@ export default function GameSection() {
     setPortfoliosCreated(getPortfoliosTested());
   }, []);
   
+  // Clear errors when stock inputs change
+  useEffect(() => {
+    // Clear the error for stock1 when it changes
+    setStock1Error('');
+    // Also clear the general error if it was related to stock inputs
+    if (error && (error.includes('stock symbols') || error.includes(stock1))) {
+      setError('');
+    }
+  }, [stock1]);
+  
+  useEffect(() => {
+    // Clear the error for stock2 when it changes
+    setStock2Error('');
+    // Also clear the general error if it was related to stock inputs
+    if (error && (error.includes('stock symbols') || error.includes(stock2))) {
+      setError('');
+    }
+  }, [stock2]);
+  
   // Calculate results from real stock data
   const calculateResults = async () => {
     if (!stock1 || !stock2) {
@@ -209,11 +228,8 @@ export default function GameSection() {
       return;
     }
     
-    // Check for validation errors
-    if (error) {
-      setError('Please correct the errors in the stock symbols');
-      return;
-    }
+    // Don't check for the general error state anymore
+    // That way if a user corrects their input, the calculation can proceed
     
     setIsLoading(true);
     setError('');
