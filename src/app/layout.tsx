@@ -64,6 +64,10 @@ export const metadata: Metadata = {
   title: 'Sharpe Calculator - Interactive Notebook for Investment Analysis',
   description: 'Calculate Sharpe ratios with an interactive notebook-themed calculator for evaluating investment risks and returns.',
   keywords: 'Sharpe ratio, investment calculator, finance, portfolio analysis, risk-adjusted return',
+  icons: {
+    icon: '/images/sharpey.png',
+    apple: '/images/sharpey.png',
+  },
 };
 
 export default function RootLayout({
@@ -79,7 +83,7 @@ export default function RootLayout({
           <div className="relative min-h-screen pt-16">
             <ClientComponentWrapper />
             <DoodleBackground />
-            <main className="container mx-auto px-4 py-4 mt-20 relative z-10">
+            <main className="container mx-auto px-4 py-4 mt-20 relative z-20">
               {children}
             </main>
           </div>

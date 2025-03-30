@@ -7,32 +7,15 @@ import { FaArrowRight, FaArrowLeft, FaChartLine, FaBalanceScale, FaCalculator, F
 // Doodle elements for the tutorial
 const TutorialDoodleElements = () => {
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+    <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10">
       {/* All elements positioned absolutely within their container - no fixed positioning */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="w-full h-full relative">
         {/* Formula elements */}
         <svg className="absolute top-[10%] right-[15%] w-28 h-16 text-notebook-blue dark:text-blue-400 opacity-20 dark:opacity-60" viewBox="0 0 100 60" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M10,30 L90,30" className="animate-draw" style={{ animationDelay: '0.2s' }} />
           <path d="M20,10 L40,10 M30,10 L30,30" className="animate-draw" style={{ animationDelay: '0.4s' }} />
           <path d="M50,10 L70,10 M50,20 L70,20" className="animate-draw" style={{ animationDelay: '0.6s' }} />
           <path d="M20,40 L80,40 M40,50 L60,50" className="animate-draw" style={{ animationDelay: '0.8s' }} />
-        </svg>
-        
-        {/* Brain/education symbol */}
-        <svg className="absolute top-[40%] left-[8%] w-20 h-20 text-purple-500 dark:text-purple-400 opacity-25 dark:opacity-60" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M50,10 C25,10 20,30 20,45 C20,70 40,80 50,90 C60,80 80,70 80,45 C80,30 75,10 50,10 Z" className="animate-draw" style={{ animationDelay: '1.0s' }} />
-          <path d="M50,10 C60,25 60,45 50,50 C40,45 40,25 50,10 Z" className="animate-draw" style={{ animationDelay: '1.2s' }} />
-          <path d="M35,30 Q50,40 65,30" className="animate-draw" style={{ animationDelay: '1.4s' }} />
-          <circle cx="40" cy="67" r="4" className="animate-draw" style={{ animationDelay: '1.6s' }} />
-          <circle cx="60" cy="67" r="4" className="animate-draw" style={{ animationDelay: '1.8s' }} />
-        </svg>
-        
-        {/* Graduation hat */}
-        <svg className="absolute bottom-[15%] right-[12%] w-16 h-16 text-notebook-blue dark:text-blue-400 opacity-25 dark:opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M2,10 L12,5 L22,10 L12,15 L2,10 Z" className="animate-draw" style={{ animationDelay: '0.5s' }} />
-          <path d="M19,10 L19,16" className="animate-draw" style={{ animationDelay: '0.7s' }} />
-          <path d="M12,15 L12,20" className="animate-draw" style={{ animationDelay: '0.9s' }} />
-          <path d="M8,12 L8,17 C8,17 10,19 12,19 C14,19 16,17 16,17 V12" className="animate-draw" style={{ animationDelay: '1.1s' }} />
         </svg>
       </div>
     </div>
@@ -182,14 +165,14 @@ export default function Tutorial({ onPlayNowClick }: TutorialProps) {
   ];
 
   return (
-    <section id="learn" className="relative">
-      <div className="container mx-auto px-4 py-16 md:py-24">
+    <section id="learn" className="relative overflow-hidden">
+      <div className="container mx-auto px-4 py-16 md:py-24 relative">
         <div className="relative">
           {/* Add the doodle elements as background */}
           <TutorialDoodleElements />
           
-          <h2 className="text-4xl font-handwritten mb-8 text-center relative z-10 bg-white dark:bg-gray-900 py-2 px-4 rounded mx-auto block w-max no-lines">Learn About the Sharpe Ratio</h2>
-          <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border border-gray-300 dark:border-gray-700 relative z-10 no-lines">
+          <h2 className="text-4xl font-handwritten mb-8 text-center relative z-20 bg-white dark:bg-gray-900 py-2 px-4 rounded mx-auto block w-max no-lines">Learn About the Sharpe Ratio</h2>
+          <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border border-gray-300 dark:border-gray-700 relative z-20 no-lines">
             {/* Rest of tutorial component */}
             <div className="mb-8">
               <div className="flex items-center gap-3 mb-4">

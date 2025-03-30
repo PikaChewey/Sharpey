@@ -82,18 +82,18 @@ export default function SharpeRatioCard({
           : '2px 2px 0 rgba(0, 0, 0, 0.1)'
       }}
     >
-      <div className="text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center font-handwritten">
+      <div className="text-base font-medium text-gray-500 dark:text-gray-400 flex items-center font-handwritten">
         {title}
       </div>
 
       {badge && (
-        <div className="mt-1 mb-1 px-2 py-1 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs rounded inline-block font-handwritten">
+        <div className="mt-1 mb-1 px-2 py-1 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-sm rounded inline-block font-handwritten">
           {badge}
         </div>
       )}
       
       {weightDetails && (
-        <div className="text-xs text-gray-600 dark:text-gray-400 font-handwritten">
+        <div className="text-sm text-gray-600 dark:text-gray-400 font-handwritten">
           {weightDetails}
         </div>
       )}
@@ -108,27 +108,27 @@ export default function SharpeRatioCard({
           <div className={`sharpe-analysis-value mt-1 ${getRatioColor(sharpeRatio)}`}>
             {sharpeRatio.toFixed(2)}
           </div>
-          <div className="text-xs mt-1 text-gray-600 dark:text-gray-400 flex items-center sharpe-analysis-label">
+          <div className="text-sm mt-1 text-gray-600 dark:text-gray-400 flex items-center sharpe-analysis-label">
             <span>{getRatioDescription(sharpeRatio)}</span>
           </div>
           
           <div className="mt-3 pt-3 border-t border-notebook-line dark:border-notebook-dark-line sharpe-analysis-text">
             {returns !== undefined && (
-              <div className="flex justify-between text-xs mb-1">
+              <div className="flex justify-between text-sm mb-1">
                 <span className="text-gray-500 dark:text-gray-400">Return:</span>
                 <span className="font-medium">{(returns * 100).toFixed(2)}%</span>
               </div>
             )}
             
             {volatility !== undefined && (
-              <div className="flex justify-between text-xs mb-1">
+              <div className="flex justify-between text-sm mb-1">
                 <span className="text-gray-500 dark:text-gray-400">Volatility:</span>
                 <span className="font-medium">{(volatility * 100).toFixed(2)}%</span>
               </div>
             )}
             
             {sortinoRatio !== undefined && sortinoRatio !== null && (
-              <div className="flex justify-between text-xs">
+              <div className="flex justify-between text-sm">
                 <span className="text-gray-500 dark:text-gray-400">Sortino Ratio:</span>
                 <span className="font-medium">{sortinoRatio.toFixed(2)}</span>
               </div>

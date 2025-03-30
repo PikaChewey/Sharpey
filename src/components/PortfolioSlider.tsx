@@ -76,14 +76,14 @@ export default function PortfolioSlider({
     <div className="space-y-3">
       <label
         htmlFor="portfolio-slider"
-        className="block text-sm font-medium text-gray-700 dark:text-gray-100 font-handwritten"
+        className="block text-base font-medium text-gray-700 dark:text-gray-100 font-handwritten"
       >
         Portfolio Weight
       </label>
       
-      <div className="flex items-center justify-between text-xs text-gray-600 dark:text-gray-300 mb-1 font-medium">
-        <span className="text-notebook-blue dark:text-blue-300 font-handwritten">{stock1}</span>
-        <span className="text-notebook-red dark:text-red-300 font-handwritten">{stock2}</span>
+      <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-300 mb-1 font-medium">
+        <span className="text-notebook-blue dark:text-blue-300 font-handwritten text-base">{stock1}</span>
+        <span className="text-notebook-red dark:text-red-300 font-handwritten text-base">{stock2}</span>
       </div>
       
       <div className="relative py-2">

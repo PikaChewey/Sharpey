@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { FaChartLine, FaPencilAlt, FaBook } from 'react-icons/fa';
+import { FaChartLine, FaPencilAlt } from 'react-icons/fa';
 import { ThemeSwitcher } from './ThemeProvider';
 
 export default function Navbar() {
@@ -40,7 +41,15 @@ export default function Navbar() {
       <div className="container-custom flex items-center justify-between h-14 md:h-16">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
-          <FaBook className="h-6 w-6 text-notebook-blue" />
+          <div className="relative h-8 w-8 flex-shrink-0">
+            <Image 
+              src="/images/sharpey.png" 
+              alt="Sharpey" 
+              width={32} 
+              height={32} 
+              className="object-contain"
+            />
+          </div>
           <span className="text-lg md:text-xl font-handwritten font-bold text-notebook-blue">
             Sharpey
           </span>
@@ -155,4 +164,4 @@ export default function Navbar() {
       )}
     </motion.nav>
   );
-} 
+}

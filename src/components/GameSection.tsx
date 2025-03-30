@@ -103,38 +103,17 @@ function calculateMetricsFromPriceHistory(data: StockData) {
 // Doodle elements for the game section
 const GameDoodleElements = () => {
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+    <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10" style={{height: "100%", width: "100%"}}>
       {/* All elements positioned absolutely within their container - no fixed positioning */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* Financial chart arrow */}
-        <svg className="absolute top-[10%] right-[8%] w-24 h-16 text-green-500 dark:text-green-400 opacity-20 dark:opacity-60" viewBox="0 0 100 50" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M0,30 L20,35 L40,20 L60,15 L80,25 L95,10" className="animate-draw" style={{ animationDelay: '0.3s' }} />
-          <path d="M85,10 L95,10 L95,20" className="animate-draw" style={{ animationDelay: '0.8s' }} />
-        </svg>
-        
-        {/* Percentage symbol */}
-        <svg className="absolute bottom-[15%] left-[7%] w-16 h-16 text-blue-500 dark:text-blue-400 opacity-25 dark:opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <circle cx="7" cy="7" r="4" className="animate-draw" style={{ animationDelay: '0.5s' }} />
-          <circle cx="17" cy="17" r="4" className="animate-draw" style={{ animationDelay: '0.7s' }} />
-          <path d="M4,20 L20,4" className="animate-draw" style={{ animationDelay: '0.9s' }} />
-        </svg>
-        
+      <div className="relative w-full h-full pointer-events-none">
         {/* Calculator icon */}
-        <svg className="absolute top-[30%] left-[5%] w-20 h-20 text-gray-500 dark:text-gray-400 opacity-20 dark:opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg className="absolute top-[35%] right-[20%] w-20 h-20 text-notebook-gray dark:text-gray-400 opacity-25 dark:opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <rect x="4" y="3" width="16" height="18" rx="2" className="animate-draw" style={{ animationDelay: '0.4s' }} />
           <line x1="8" y1="7" x2="16" y2="7" className="animate-draw" style={{ animationDelay: '0.6s' }} />
           <line x1="8" y1="12" x2="10" y2="12" className="animate-draw" style={{ animationDelay: '0.8s' }} />
           <line x1="14" y1="12" x2="16" y2="12" className="animate-draw" style={{ animationDelay: '1.0s' }} />
           <line x1="8" y1="16" x2="10" y2="16" className="animate-draw" style={{ animationDelay: '1.2s' }} />
           <line x1="14" y1="16" x2="16" y2="16" className="animate-draw" style={{ animationDelay: '1.4s' }} />
-        </svg>
-        
-        {/* Star rating */}
-        <svg className="absolute top-[65%] right-[10%] w-24 h-12 text-yellow-500 dark:text-yellow-400 opacity-25 dark:opacity-60" viewBox="0 0 120 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M12,2 L15,8 L22,9 L17,14 L18,21 L12,18 L6,21 L7,14 L2,9 L9,8 L12,2Z" className="animate-draw" style={{ animationDelay: '0.2s' }} />
-          <path d="M42,2 L45,8 L52,9 L47,14 L48,21 L42,18 L36,21 L37,14 L32,9 L39,8 L42,2Z" className="animate-draw" style={{ animationDelay: '0.4s' }} />
-          <path d="M72,2 L75,8 L82,9 L77,14 L78,21 L72,18 L66,21 L67,14 L62,9 L69,8 L72,2Z" className="animate-draw" style={{ animationDelay: '0.6s' }} />
-          <path d="M102,2 L105,8 L112,9 L107,14 L108,21 L102,18 L96,21 L97,14 L92,9 L99,8 L102,2Z" className="animate-draw" style={{ animationDelay: '0.8s' }} />
         </svg>
       </div>
     </div>
@@ -530,255 +509,245 @@ with a Sharpe Ratio of ${portfolioSharpeRatio.toFixed(2)}!`;
   return (
     <section
       id="game"
-      className="relative py-16 sm:py-24 lined-background"
+      className="relative overflow-hidden"
     >
-      {/* Doodle elements for visual interest */}
-      <GameDoodleElements />
-
-      <div className="container-custom game-section-wrapper lined-background">
-        <div className="text-center mb-12">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-3xl md:text-4xl font-handwritten text-notebook-blue dark:text-blue-300 mb-4"
-          >
-            Sharpe Ratio Calculator
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="text-notebook-gray dark:text-gray-200 font-handwritten max-w-3xl mx-auto"
-          >
-            Build a two-stock portfolio and test its risk-adjusted performance. Try different combinations
-            to see how diversification affects your Sharpe ratio!
-          </motion.p>
-        </div>
-
-        {/* Main Game Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Stock Selection & Portfolio Weight */}
-          <div className="lg:col-span-1 space-y-6">
-            {/* First Card - Stock Selection */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              className="border border-notebook-line dark:border-notebook-dark-line bg-notebook-paper dark:bg-notebook-dark-paper game-card rounded-lg shadow-sm"
-            >
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-xl font-handwritten text-notebook-blue dark:text-blue-300 flex items-center">
-                  Stock Selection
-                </h3>
-                <button 
-                  onClick={handleClearStocks}
-                  className="p-2 rounded text-notebook-gray hover:text-notebook-blue transition-colors"
-                  title="Clear stocks"
-                >
-                  <FaTimes className="h-5 w-5" />
-                </button>
-              </div>
-
-              {/* Stock Input Fields */}
-              <div className="space-y-4">
-                <div>
-                  <StockInputField
-                    value={stock1}
-                    onChange={setStock1}
-                    error={stock1Error}
-                    setError={setStock1Error}
-                    placeholder="e.g. AAPL"
-                    index={0}
-                  />
-                </div>
-                <div>
-                  <StockInputField
-                    value={stock2}
-                    onChange={setStock2}
-                    error={stock2Error}
-                    setError={setStock2Error}
-                    placeholder="e.g. MSFT"
-                    index={1}
-                  />
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Second Card - Portfolio Weight */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.1 }}
-              className="border border-notebook-line dark:border-notebook-dark-line bg-notebook-paper dark:bg-notebook-dark-paper game-card rounded-lg shadow-sm"
-            >
-              <h3 className="font-handwritten text-xl text-notebook-blue dark:text-blue-300 flex items-center">
-                Adjust Portfolio Weights
-              </h3>
-
-              {/* Portfolio Weight Slider */}
-              <PortfolioSlider
-                value={weight}
-                onChange={setWeight}
-                stock1={confirmedStock1 || "Stock 1"}
-                stock2={confirmedStock2 || "Stock 2"}
-              />
-            </motion.div>
-
-            {/* Calculate Button & Error Display */}
-            <div className="space-y-4">
-              <button
-                onClick={calculateResults}
-                disabled={isLoading}
-                className="btn-notebook w-full py-4 text-base flex items-center justify-center"
-                style={{ filter: 'url(#marker-effect)' }}
-              >
-                {isLoading ? (
-                  <span className="flex items-center">
-                    Calculating...
-                    <svg className="ml-2 animate-spin h-4 w-4" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                  </span>
-                ) : (
-                  <span className="flex items-center">
-                    Calculate Sharpe Ratio
-                    <svg className="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
-                  </span>
-                )}
-              </button>
-
-              {/* Error Message */}
-              {error && (
-                <div className="p-3 bg-white border border-notebook-red rounded-md">
-                  <p className="text-notebook-red font-handwritten text-sm">{error}</p>
-                </div>
-              )}
-
-              {/* Success Message */}
-              {successMessage && (
-                <div className="p-3 bg-white border border-notebook-blue rounded-md">
-                  <p className="text-notebook-blue font-handwritten text-sm">{successMessage}</p>
-                </div>
-              )}
-            </div>
-            
-            {/* Portfolio Counter */}
-            <div className="text-center">
-              <p className="text-sm font-handwritten text-notebook-gray dark:text-gray-100">
-                {portfoliosCreated} portfolios tested so far
-              </p>
-            </div>
+      <div className="container mx-auto px-4 relative">
+        <div className="relative">
+          {/* Add the doodle elements as background */}
+          <GameDoodleElements />
+          
+          <div className="text-center mb-10 relative z-20">
+            {/* Game title */}
+            <h2 className="text-4xl font-handwritten mb-3 text-notebook-blue dark:text-blue-300">Calculate Your Sharpe Ratio</h2>
+            <p className="text-lg max-w-2xl mx-auto font-handwritten text-gray-700 dark:text-gray-300">
+              Enter two stock tickers and adjust the slider to see which portfolio allocation gives you the best risk-adjusted return.
+            </p>
           </div>
-
-          {/* Results Section */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Performance Chart */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3 }}
-              className="border border-notebook-line dark:border-notebook-dark-line bg-notebook-paper dark:bg-notebook-dark-paper game-card rounded-lg shadow-sm"
-            >
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="font-handwritten text-xl text-notebook-blue dark:text-blue-300 flex items-center">
-                  Performance Comparison
-                </h3>
-                <ComparisonToggle 
-                  showComparison={showComparison} 
-                  onChange={() => setShowComparison(!showComparison)} 
-                  label="Show Market Indices"
-                />
-              </div>
-              <PerformanceChart 
-                stockData1={stockData1} 
-                stockData2={stockData2} 
-                portfolioWeights={[confirmedWeight, 100-confirmedWeight]}
-                showComparison={showComparison}
-                isLoading={isLoading}
-              />
-            </motion.div>
-
-            {/* Sharpe Ratio Results */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3, delay: 0.1 }}
-              className="border border-notebook-line dark:border-notebook-dark-line bg-notebook-paper dark:bg-notebook-dark-paper game-card rounded-lg shadow-sm"
-            >
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="font-handwritten text-xl text-notebook-blue flex items-center">
-                  Sharpe Ratio Analysis
-                </h3>
-                
-                <div className="flex gap-3">
-                  <button
-                    onClick={handleSavePortfolio}
-                    disabled={!portfolioSharpeRatio}
-                    className="px-3 py-1 rounded flex items-center bg-notebook-paper dark:bg-notebook-dark-paper border border-notebook-line dark:border-notebook-dark-line text-notebook-gray hover:text-notebook-blue hover:bg-blue-50 dark:hover:bg-blue-900/20 disabled:opacity-50 disabled:hover:text-notebook-gray disabled:hover:bg-transparent transition-colors font-handwritten"
-                    title="Save Portfolio"
+          
+          {/* Main Game Content */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-20">
+            {/* Stock Selection & Portfolio Weight */}
+            <div className="lg:col-span-1 space-y-6">
+              {/* First Card - Stock Selection */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="border border-notebook-line dark:border-notebook-dark-line bg-notebook-paper dark:bg-notebook-dark-paper game-card rounded-lg shadow-sm"
+              >
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-xl font-handwritten text-notebook-blue dark:text-blue-300 flex items-center">
+                    Stock Selection
+                  </h3>
+                  <button 
+                    onClick={handleClearStocks}
+                    className="p-2 rounded text-notebook-gray hover:text-notebook-blue transition-colors"
+                    title="Clear stocks"
                   >
-                    <FaSave className="h-4 w-4 mr-1" />
-                    <span>Save</span>
+                    <FaTimes className="h-5 w-5" />
                   </button>
                 </div>
-              </div>
 
-              {/* Sharpe Ratio Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <SharpeRatioCard
-                  title={confirmedStock1 || "Stock 1"}
-                  sharpeRatio={stockData1?.sharpeRatio || null}
-                  isLoading={isLoading}
-                  returns={stockData1?.returns}
-                  volatility={stockData1?.volatility}
-                  badge={stockData1?.isFallback ? "Simulated Data" : ""}
-                />
-                
-                <SharpeRatioCard
-                  title={confirmedStock2 || "Stock 2"}
-                  sharpeRatio={stockData2?.sharpeRatio || null}
-                  isLoading={isLoading}
-                  returns={stockData2?.returns}
-                  volatility={stockData2?.volatility}
-                  badge={stockData2?.isFallback ? "Simulated Data" : ""}
-                />
-                
-                <SharpeRatioCard
-                  title="Portfolio"
-                  sharpeRatio={portfolioSharpeRatio}
-                  isLoading={isLoading}
-                  isHighlighted={true}
-                  returns={portfolioReturns !== null ? portfolioReturns : undefined}
-                  volatility={portfolioVolatility !== null ? portfolioVolatility : undefined}
-                  weightDetails={`${confirmedStock1} (${confirmedWeight}%) + ${confirmedStock2} (${100-confirmedWeight}%)`}
-                  sortinoRatio={sortinoRatio}
-                />
-              </div>
-
-              {/* Market Comparison */}
-              {showComparison && (
-                <div className="mt-6">
-                  <h4 className="font-handwritten text-lg text-notebook-gray mb-2">Market Benchmarks</h4>
-                  <div className="grid grid-cols-3 gap-4">
-                    {MARKET_INDICES.map((index) => (
-                      <div 
-                        key={index.name}
-                        className="text-center p-4 bg-notebook-paper dark:bg-notebook-dark-paper border border-notebook-line dark:border-notebook-dark-line rounded"
-                      >
-                        <p className="font-handwritten text-sm text-notebook-gray">{index.name}</p>
-                        <p className="font-handwritten text-xl text-notebook-blue font-medium mt-1">
-                          {index.sharpeRatio.toFixed(2)}
-                        </p>
-                      </div>
-                    ))}
+                {/* Stock Input Fields */}
+                <div className="space-y-4">
+                  <div>
+                    <StockInputField
+                      value={stock1}
+                      onChange={setStock1}
+                      error={stock1Error}
+                      setError={setStock1Error}
+                      placeholder="e.g. AAPL"
+                      index={0}
+                    />
+                  </div>
+                  <div>
+                    <StockInputField
+                      value={stock2}
+                      onChange={setStock2}
+                      error={stock2Error}
+                      setError={setStock2Error}
+                      placeholder="e.g. MSFT"
+                      index={1}
+                    />
                   </div>
                 </div>
-              )}
-            </motion.div>
+              </motion.div>
+
+              {/* Second Card - Portfolio Weight */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.1 }}
+                className="border border-notebook-line dark:border-notebook-dark-line bg-notebook-paper dark:bg-notebook-dark-paper game-card rounded-lg shadow-sm"
+              >
+                <h3 className="font-handwritten text-xl text-notebook-blue dark:text-blue-300 flex items-center">
+                  Adjust Portfolio Weights
+                </h3>
+
+                {/* Portfolio Weight Slider */}
+                <PortfolioSlider
+                  value={weight}
+                  onChange={setWeight}
+                  stock1={confirmedStock1 || "Stock 1"}
+                  stock2={confirmedStock2 || "Stock 2"}
+                />
+              </motion.div>
+
+              {/* Calculate Button & Error Display */}
+              <div className="space-y-4">
+                <button
+                  onClick={calculateResults}
+                  disabled={isLoading}
+                  className="btn-notebook w-full py-4 text-base flex items-center justify-center"
+                  style={{ filter: 'url(#marker-effect)' }}
+                >
+                  {isLoading ? (
+                    <span className="flex items-center">
+                      Calculating...
+                      <svg className="ml-2 animate-spin h-4 w-4" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    </span>
+                  ) : (
+                    <span className="flex items-center">
+                      Calculate Sharpe Ratio
+                      <svg className="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                    </span>
+                  )}
+                </button>
+
+                {/* Error Message */}
+                {error && (
+                  <div className="p-3 bg-white border border-notebook-red rounded-md">
+                    <p className="text-notebook-red font-handwritten text-sm">{error}</p>
+                  </div>
+                )}
+
+                {/* Success Message */}
+                {successMessage && (
+                  <div className="p-3 bg-white border border-notebook-blue rounded-md">
+                    <p className="text-notebook-blue font-handwritten text-sm">{successMessage}</p>
+                  </div>
+                )}
+              </div>
+              
+              {/* Portfolio Counter */}
+              <div className="text-center">
+                <p className="text-sm font-handwritten text-notebook-gray dark:text-gray-100">
+                  {portfoliosCreated} portfolios tested so far
+                </p>
+              </div>
+            </div>
+
+            {/* Results Section */}
+            <div className="lg:col-span-2 space-y-6">
+              {/* Performance Chart */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.3 }}
+                className="border border-notebook-line dark:border-notebook-dark-line bg-notebook-paper dark:bg-notebook-dark-paper game-card rounded-lg shadow-sm"
+              >
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="font-handwritten text-xl text-notebook-blue dark:text-blue-300 flex items-center">
+                    Performance Comparison
+                  </h3>
+                  <ComparisonToggle 
+                    showComparison={showComparison} 
+                    onChange={() => setShowComparison(!showComparison)} 
+                    label="Show Market Indices"
+                  />
+                </div>
+                <PerformanceChart 
+                  stockData1={stockData1} 
+                  stockData2={stockData2} 
+                  portfolioWeights={[confirmedWeight, 100-confirmedWeight]}
+                  showComparison={showComparison}
+                  isLoading={isLoading}
+                />
+              </motion.div>
+
+              {/* Sharpe Ratio Results */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.3, delay: 0.1 }}
+                className="border border-notebook-line dark:border-notebook-dark-line bg-notebook-paper dark:bg-notebook-dark-paper game-card rounded-lg shadow-sm"
+              >
+                <div className="flex justify-between items-center mb-6">
+                  <h3 className="font-handwritten text-xl text-notebook-blue flex items-center">
+                    Sharpe Ratio Analysis
+                  </h3>
+                  
+                  <div className="flex gap-3">
+                    <button
+                      onClick={handleSavePortfolio}
+                      disabled={!portfolioSharpeRatio}
+                      className="px-3 py-1 rounded flex items-center bg-notebook-paper dark:bg-notebook-dark-paper border border-notebook-line dark:border-notebook-dark-line text-notebook-gray hover:text-notebook-blue hover:bg-blue-50 dark:hover:bg-blue-900/20 disabled:opacity-50 disabled:hover:text-notebook-gray disabled:hover:bg-transparent transition-colors font-handwritten"
+                      title="Save Portfolio"
+                    >
+                      <FaSave className="h-4 w-4 mr-1" />
+                      <span>Save</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Sharpe Ratio Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <SharpeRatioCard
+                    title={confirmedStock1 || "Stock 1"}
+                    sharpeRatio={stockData1?.sharpeRatio || null}
+                    isLoading={isLoading}
+                    returns={stockData1?.returns}
+                    volatility={stockData1?.volatility}
+                    badge={stockData1?.isFallback ? "Simulated Data" : ""}
+                  />
+                  
+                  <SharpeRatioCard
+                    title={confirmedStock2 || "Stock 2"}
+                    sharpeRatio={stockData2?.sharpeRatio || null}
+                    isLoading={isLoading}
+                    returns={stockData2?.returns}
+                    volatility={stockData2?.volatility}
+                    badge={stockData2?.isFallback ? "Simulated Data" : ""}
+                  />
+                  
+                  <SharpeRatioCard
+                    title="Portfolio"
+                    sharpeRatio={portfolioSharpeRatio}
+                    isLoading={isLoading}
+                    isHighlighted={true}
+                    returns={portfolioReturns !== null ? portfolioReturns : undefined}
+                    volatility={portfolioVolatility !== null ? portfolioVolatility : undefined}
+                    weightDetails={`${confirmedStock1} (${confirmedWeight}%) + ${confirmedStock2} (${100-confirmedWeight}%)`}
+                    sortinoRatio={sortinoRatio}
+                  />
+                </div>
+
+                {/* Market Comparison */}
+                {showComparison && (
+                  <div className="mt-6">
+                    <h4 className="font-handwritten text-lg text-notebook-gray mb-2">Market Benchmarks</h4>
+                    <div className="grid grid-cols-3 gap-4">
+                      {MARKET_INDICES.map((index) => (
+                        <div 
+                          key={index.name}
+                          className="text-center p-4 bg-notebook-paper dark:bg-notebook-dark-paper border border-notebook-line dark:border-notebook-dark-line rounded"
+                        >
+                          <p className="font-handwritten text-sm text-notebook-gray">{index.name}</p>
+                          <p className="font-handwritten text-xl text-notebook-blue font-medium mt-1">
+                            {index.sharpeRatio.toFixed(2)}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            </div>
           </div>
         </div>
 

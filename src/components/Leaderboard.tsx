@@ -58,31 +58,15 @@ const GLOBAL_LEADERBOARD = [
 // Doodle elements for the leaderboard section
 const LeaderboardDoodleElements = () => {
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+    <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10">
       {/* All elements positioned absolutely within their container - no fixed positioning */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="w-full h-full relative">
         {/* Trophy */}
         <svg className="absolute top-[5%] right-[10%] w-24 h-24 text-amber-500 dark:text-amber-400 opacity-25 dark:opacity-40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path d="M8,21 L16,21 M12,21 L12,17 M6,17 C4,17 3,16 3,13 L3,6 C3,5.5 3.5,5 4,5 L20,5 C20.5,5 21,5.5 21,6 L21,13 C21,16 20,17 18,17 L6,17 Z" className="animate-draw" style={{ animationDelay: '0.2s' }} />
           <path d="M8,5 L8,3 L16,3 L16,5" className="animate-draw" style={{ animationDelay: '0.4s' }} />
           <path d="M5,9 L3,9 L3,13 L5,13" className="animate-draw" style={{ animationDelay: '0.6s' }} />
           <path d="M19,9 L21,9 L21,13 L19,13" className="animate-draw" style={{ animationDelay: '0.8s' }} />
-        </svg>
-        
-        {/* Medal */}
-        <svg className="absolute top-[40%] left-[8%] w-20 h-20 text-blue-500 dark:text-blue-400 opacity-25 dark:opacity-40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <circle cx="12" cy="15" r="6" className="animate-draw" style={{ animationDelay: '1.0s' }} />
-          <path d="M7,6 L17,6 M9,3 L15,3 M12,9 L12,3" className="animate-draw" style={{ animationDelay: '1.2s' }} />
-          <path d="M10,15 L14,15 M12,13 L12,17" className="animate-draw" style={{ animationDelay: '1.4s' }} />
-        </svg>
-        
-        {/* Star rating */}
-        <svg className="absolute bottom-[15%] right-[15%] w-32 h-12 text-amber-500 dark:text-amber-400 opacity-25 dark:opacity-40" viewBox="0 0 120 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M12,2 L15,8 L22,9 L17,14 L18,21 L12,18 L6,21 L7,14 L2,9 L9,8 Z" className="animate-draw" style={{ animationDelay: '0.3s' }} transform="translate(0,0)" />
-          <path d="M12,2 L15,8 L22,9 L17,14 L18,21 L12,18 L6,21 L7,14 L2,9 L9,8 Z" className="animate-draw" style={{ animationDelay: '0.5s' }} transform="translate(25,0)" />
-          <path d="M12,2 L15,8 L22,9 L17,14 L18,21 L12,18 L6,21 L7,14 L2,9 L9,8 Z" className="animate-draw" style={{ animationDelay: '0.7s' }} transform="translate(50,0)" />
-          <path d="M12,2 L15,8 L22,9 L17,14 L18,21 L12,18 L6,21 L7,14 L2,9 L9,8 Z" className="animate-draw" style={{ animationDelay: '0.9s' }} transform="translate(75,0)" />
-          <path d="M12,2 L15,8 L22,9 L17,14 L18,21 L12,18 L6,21 L7,14 L2,9 L9,8 Z" className="animate-draw" style={{ animationDelay: '1.1s' }} transform="translate(100,0)" />
         </svg>
       </div>
     </div>
@@ -125,20 +109,20 @@ export default function Leaderboard() {
   };
 
   return (
-    <section id="leaderboard" className="relative py-16 md:py-24">
-      <div className="container mx-auto px-4">
+    <section id="leaderboard" className="relative overflow-hidden py-16 md:py-24">
+      <div className="container mx-auto px-4 relative">
         <div className="relative">
           {/* Add the doodle elements as background */}
           <LeaderboardDoodleElements />
           
-          <div className="text-center mb-10 relative z-10">
+          <div className="text-center mb-10 relative z-20">
             <h2 className="text-4xl font-handwritten mb-3">Leaderboard (Coming Soon)</h2>
             <p className="text-lg max-w-2xl mx-auto font-handwritten text-gray-700 dark:text-gray-300">
               See how your portfolio compares with others! The highest Sharpe Ratio wins.
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-300 dark:border-gray-700 relative z-10">
+          <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-300 dark:border-gray-700 relative z-20">
             <div className="flex border-b border-gray-200 dark:border-gray-700">
               <button
                 className={`py-3 px-5 font-handwritten text-lg ${
@@ -210,7 +194,7 @@ export default function Leaderboard() {
                                 <div>
                                   <span className="font-medium">{portfolio.username || 'Anonymous'}</span>
                                   <div className="text-sm text-gray-600 dark:text-gray-400">
-                                    {portfolio.stock1} ({(portfolio.weight * 100).toFixed(0)}%) + {portfolio.stock2} ({((1 - portfolio.weight) * 100).toFixed(0)}%)
+                                    {portfolio.stock1} ({(portfolio.weight).toFixed(0)}%) + {portfolio.stock2} ({(100 - portfolio.weight).toFixed(0)}%)
                                   </div>
                                 </div>
                               </td>
@@ -269,7 +253,7 @@ export default function Leaderboard() {
                           </td>
                           <td className="py-3 px-4 font-handwritten">
                             <div className="text-sm">
-                              {entry.stock1} ({(entry.weight * 100).toFixed(0)}%) + {entry.stock2} ({((1 - entry.weight) * 100).toFixed(0)}%)
+                              {entry.stock1} ({(entry.weight * 100).toFixed(0)}%) + {entry.stock2} ({(100 - entry.weight * 100).toFixed(0)}%)
                             </div>
                           </td>
                           <td className="py-3 px-4 font-handwritten font-medium text-notebook-blue dark:text-blue-400">

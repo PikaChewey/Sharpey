@@ -13,9 +13,9 @@ interface HeroProps {
 // Doodle elements for the hero
 const DoodleElements = () => {
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+    <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10">
       {/* All elements positioned absolutely within their container - no fixed positioning */}
-      <div className="absolute inset-0 pointer-events-none z-0">
+      <div className="w-full h-full relative">
         {/* Math symbols doodle */}
         <svg className="absolute top-[5%] right-[8%] w-24 h-24 text-notebook-blue dark:text-blue-400 opacity-20 dark:opacity-60" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M20,50 L80,50" className="animate-draw" style={{ animationDelay: '0.2s' }} />
@@ -23,35 +23,29 @@ const DoodleElements = () => {
           <circle cx="50" cy="50" r="30" className="animate-draw" style={{ animationDelay: '0.6s' }} />
         </svg>
         
-        {/* Squiggle line */}
-        <svg className="absolute bottom-[20%] left-[10%] w-40 h-10 text-notebook-red dark:text-red-400 opacity-30 dark:opacity-60" viewBox="0 0 100 20" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M0,10 Q10,20 20,10 T40,10 T60,10 T80,10 T100,10" className="animate-draw" style={{ animationDelay: '0.8s' }} />
+        {/* Dollar sign - with longer vertical line */}
+        <svg className="absolute top-[25%] left-[5%] w-16 h-16 text-notebook-blue dark:text-blue-400 opacity-25 dark:opacity-60" viewBox="0 0 24 28" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M12,1 L12,24 M17,5 C15,3 9,3 7,5 C5,7 5,11 7,13 C9,15 15,15 17,17 C19,19 19,23 17,25 C15,27 9,27 7,25" className="animate-draw" style={{ animationDelay: '1s' }} />
         </svg>
-        
-        {/* Dollar sign */}
-        <svg className="absolute top-[25%] left-[5%] w-16 h-16 text-notebook-blue dark:text-blue-400 opacity-25 dark:opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M12,2 L12,22 M17,5 C15,3 9,3 7,5 C5,7 5,11 7,13 C9,15 15,15 17,17 C19,19 19,23 17,25 C15,27 9,27 7,25" className="animate-draw" style={{ animationDelay: '1s' }} />
+
+        {/* Sigma symbol - moved to middle-top */}
+        <svg className="absolute top-[15%] left-[50%] transform -translate-x-1/2 w-20 h-20 text-teal-600 dark:text-teal-400 opacity-25 dark:opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M5,4 L19,4 M5,20 L19,20 M5,4 L12,12 L5,20" className="animate-draw" style={{ animationDelay: '0.5s' }} />
         </svg>
-        
-        {/* Sigma symbol */}
-        <svg className="absolute bottom-[30%] right-[12%] w-20 h-20 text-notebook-gray dark:text-gray-400 opacity-25 dark:opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M5,5 H19 L5,19 H19" className="animate-draw" style={{ animationDelay: '1.2s' }} />
+
+        {/* Pi symbol - moved more right */}
+        <svg className="absolute bottom-[15%] left-[35%] w-16 h-16 text-amber-600 dark:text-amber-400 opacity-25 dark:opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M5,8 L19,8 M8,8 L8,20 M16,8 L16,20" className="animate-draw" style={{ animationDelay: '0.7s' }} />
         </svg>
-        
-        {/* Chart line */}
-        <svg className="absolute top-[40%] right-[5%] w-24 h-16 text-green-600 dark:text-green-400 opacity-25 dark:opacity-60" viewBox="0 0 100 50" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M0,40 L20,35 L40,20 L60,25 L80,10 L100,5" className="animate-draw" style={{ animationDelay: '1.4s' }} />
+
+        {/* Arrow - moved to WAY FAR DOWN */}
+        <svg className="absolute bottom-[3%] left-[5%] w-28 h-16 text-red-600 dark:text-red-400 opacity-25 dark:opacity-60" viewBox="0 0 40 20" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M2,10 L35,10 M28,3 L35,10 L28,17" className="animate-draw" style={{ animationDelay: '0.9s' }} />
         </svg>
-        
-        {/* Circle star */}
-        <svg className="absolute top-[60%] left-[15%] w-20 h-20 text-orange-500 dark:text-orange-400 opacity-25 dark:opacity-60" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
-          <circle cx="50" cy="50" r="40" className="animate-draw" style={{ animationDelay: '1.6s' }} />
-          <path d="M50,10 L50,90 M10,50 L90,50 M25,25 L75,75 M25,75 L75,25" className="animate-draw" style={{ animationDelay: '1.8s' }} />
-        </svg>
-        
-        {/* Arrow */}
-        <svg className="absolute bottom-[15%] right-[25%] w-16 h-16 text-purple-500 dark:text-purple-400 opacity-25 dark:opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M5,12 H19 M13,6 L19,12 L13,18" className="animate-draw" style={{ animationDelay: '2.0s' }} />
+
+        {/* Asterisk symbol */}
+        <svg className="absolute bottom-[35%] right-[7%] w-16 h-16 text-blue-600 dark:text-blue-400 opacity-25 dark:opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M12,4 L12,20 M6,8 L18,16 M6,16 L18,8" className="animate-draw" style={{ animationDelay: '1.3s' }} />
         </svg>
       </div>
     </div>
@@ -72,7 +66,7 @@ export default function Hero({ onGetStartedClick }: HeroProps) {
       {/* Add doodle elements */}
       <DoodleElements />
 
-      <div className="container-custom relative z-10">
+      <div className="container-custom relative z-20">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-center pb-8">
           {/* Text content - 3 columns on large screens */}
           <div className="lg:col-span-3 space-y-6">
@@ -127,8 +121,8 @@ export default function Hero({ onGetStartedClick }: HeroProps) {
           >
             <div className="relative min-h-[300px] md:min-h-[400px] w-full max-w-md">
               <Image
-                src="/images/sharpe-ratio-hero.svg"
-                alt="Sharpe Ratio Visualization"
+                src="/images/sharpey.png"
+                alt="Sharpey Logo"
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-contain"
