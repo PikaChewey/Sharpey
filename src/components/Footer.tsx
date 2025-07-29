@@ -72,7 +72,7 @@ export default function Footer() {
         
         <div className="mt-12 pt-8 border-t border-notebook-line dark:border-notebook-dark-line flex justify-center items-center">
           <div className="text-notebook-gray dark:text-gray-100 text-sm font-handwritten">
-            Made by Bryan Yao and Stanley Zhou {currentYear}
+            Made by Bryan Yao {currentYear}
           </div>
         </div>
       </div>
